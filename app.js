@@ -29,6 +29,7 @@ app.get('/search', function(req, res){
 	var query = req.query.q;
 	var regex = new RegExp(query, 'i')
 	db.bind('reports');
+	//This displays only the most recent version of a Title
 	db.reports.aggregate([
 	{ $match: { "parsed_metadata.title": regex}}, 
 	{ $sort: { "parsed_metadata.date": -1 }}
