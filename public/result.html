@@ -50,18 +50,18 @@
 
      <!-- This row contains the CRS search title bar -->
      <div class="row" id="searchHeader">
-       <div class="col-lg-10 col-md-8 col-sm-6" style="top: 100px;">
+       <div class="col-xs-10" style="margin-top: 5%;">
         <!-- Switch to JPG to reduce size -->
         <form id="searchQuery">
           <div class="input-group" >
 
            <!-- Search BOX -->
-           <input placeholder="NEW SEARCH" style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-family: 'EB Garamond',serif; font-size: 22px; font-weight: 600; padding-right: 30px;" name="q" type="text" id="queryInput">
+           <input placeholder="NEW SEARCH" style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-family: 'EB Garamond',serif; font-size: 2vw; font-weight: 600; padding-right: 30px;" name="q" type="text" id="queryInput">
            <span class="input-group-btn">
             <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
 
               <!-- Search Image -->
-              <img style="width: 24px;" src="/img/search.png">
+              <img style="width: 2.4vw;" src="/img/search.png">
             </button>
           </span>
         </div>
@@ -74,11 +74,11 @@
        </div>
      </form>
      <!-- Describes Blue Bar Character -->
-     <hr style="border: 4px solid #262262; width: 100%; border-radius: 2px 2px 3px 3px / 2px; padding-top: 0px; margin-top: 0px; position: absolute; top: 35px;" />
+     <hr style="border: 4px solid #262262; width: 84vw; border-radius: 2px 2px 3px 3px / 2px;  position: absolute; " />
    </div>
    <!-- Logo -->
-   <div class="col-lg-2 col-md-4 col-sm-6">
-     <img style="height:160px; position: absolute;" src="/img/logo.png" />
+   <div class="col-xs-2">
+     <img style="width:12vw; position: absolute;" src="/img/text_logo.png" />
    </div>
    
  </div>
@@ -93,13 +93,10 @@
 <!--List of Results-->
 <div class="row" >
   <div class="col-lg-2 col-md-2 col-sm-1"></div>
-  <div class="col-lg-8 col-md-8 col-sm-10" style="top: 250px;" id="outputSearchResult">
+  <div class="col-lg-8 col-md-8 col-sm-10" style="top: 4em;" id="outputSearchResult">
     <!--For each Result-->
-    <h3>Query the database by typing in a search term in the search bar above.
+    <h3>Searching...
     </h3>
-    <p id="description">
-      Results will show all reports with a matching title. In the event that there are multiple versions, the most recently published report will display. 
-    </p>
 
   </div>
 </div>

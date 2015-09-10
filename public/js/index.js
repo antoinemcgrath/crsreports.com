@@ -38,11 +38,9 @@ if (query){
 		documents.length = 0;
 		documents.push.apply(documents,res);
 		for(var i = 0; i < documents.length; i++) {
-			// result = documents[i].authors.split('[(u\'')[1].split('\',')[0];
-				//documents[i].authors = result;
 				documents[i].parsed_metadata.date = parseDate(documents[i].parsed_metadata.date);
 			};
-			document.getElementById("resultsHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 150px; background-color: #D3D3D3; text-align: left; font-family: Arial, serif; font-size: 22px; "><p style="padding: 30px 0px 0px 30px">Displaying '+ documents.length + '  Reports, Filter: "' + query +'"  <!--Sort By Drop-down menu--><div class="dropdown" style="float: left; padding: 0px 50px 30px 30px;"><button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Sort By    <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("title");\'>Title</a></li><li><a onclick=\'sortDocuments("title", 1);\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("time", 1);\'>Date</a></li><li><a onclick=\'sortDocuments("time");\'>Date (oldest first)</a></li></ul></div></p></div>'
+			document.getElementById("resultsHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: left; font-family: Arial, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9"> &nbsp &nbsp Displaying '+ documents.length + '  Reports, Filter: "' + query +' " <!--Sort By Drop-down menu--><div class="dropdown-menu-right" style="padding: 10px; 30px; 0px; 50px;"> Sort by: &nbsp <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Select   <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("title");\'>Title</a></li><li><a onclick=\'sortDocuments("title", 1);\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("time", 1);\'>Date</a></li><li><a onclick=\'sortDocuments("time");\'>Date (oldest first)</a></li></ul></p></div> </div>'
 			displayDocuments();
 		});
 };
@@ -51,7 +49,7 @@ var displayDocuments = function() {
 	var elementString = "";
 	for(var i = 0; i < documents.length; i++) {
 		
-		elementString += "<div class='well well-lg'><h3 class='document-row'>" + documents[i].parsed_metadata.title + "</h3></br><h4 class='document-row'>Original Format: </h4 >" + documents[i].magic + "</br><h4 class='document-row'>Date:  </h4>" + months[documents[i].parsed_metadata.date.getMonth()] + " " + documents[i].parsed_metadata.date.getDate() + ", " + documents[i].parsed_metadata.date.getFullYear() +"</br></div>"
+		elementString += "<div class='well well-lg'><h3 class='document-row'>" + documents[i].parsed_metadata.title + "</h3></br><h4 class='document-row'>Order Code: &nbsp </h4 >" + documents[i].parsed_metadata.ordercode + "</br><h4 class='document-row'>Date: &nbsp </h4>" + months[documents[i].parsed_metadata.date.getMonth()] + " " + documents[i].parsed_metadata.date.getDate() + ", " + documents[i].parsed_metadata.date.getFullYear() +"</br></div>"
 	}
 	elementString += "</br>"
 	document.getElementById("outputSearchResult").innerHTML = elementString;

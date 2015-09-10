@@ -1,0 +1,9 @@
+.document-row {
+	display: inline-block;
+}
+
+@media screen and (max-width: 700px) {
+	img {
+		width: 0px;
+	}
+} 
