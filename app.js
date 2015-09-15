@@ -38,7 +38,8 @@ app.get('/search', function(req, res){
 
 	db.reports.aggregate([
 	{ $match: { "parsed_metadata.title": regex}}, 
-	{ $sort: { "parsed_metadata.date": -1 }}
+	{ $sort: { "parsed_metadata.date": -1 }},
+	{ $limit: 500 }
 	], function(err, results){
 		if(err){
 			console.log(err);
