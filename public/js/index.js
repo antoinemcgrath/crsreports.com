@@ -1,11 +1,11 @@
 $("#searchForm").on("submit", function(e){
 	e.preventDefault();
-	window.location.href="/result.html?q="+document.getElementById("searchInput").value;
+	window.location.href="/result?q="+document.getElementById("searchInput").value;
 });
 
 $("#searchQuery").on("submit", function(e){
 	e.preventDefault();
-	window.location.href="/result.html?q="+document.getElementById("queryInput").value;
+	window.location.href="/result?q="+document.getElementById("queryInput").value;
 });
 
 var documents = [];
@@ -49,7 +49,7 @@ var displayDocuments = function() {
 	var elementString = "";
 	for(var i = 0; i < documents.length; i++) {
 		
-		elementString += "<div class='active-hover' style='padding:10px'><a href='item.html?q=" + documents[i].parsed_metadata.ordercode + "'><h3 class='document-row'>" + documents[i].parsed_metadata.title + "</h3></a></br><h4 class='document-row'>Order Code: &nbsp </h4 >" + documents[i].parsed_metadata.ordercode + "</br><h4 class='document-row'>Date: &nbsp </h4>" + months[documents[i].parsed_metadata.date.getMonth()] + " " + documents[i].parsed_metadata.date.getDate() + ", " + documents[i].parsed_metadata.date.getFullYear() +"</br><hr></div>"
+		elementString += "<div class='active-hover' style='padding:10px'><a href='items?q=" + documents[i].parsed_metadata.ordercode + "'><h3 class='document-row'>" + documents[i].parsed_metadata.title + "</h3></a></br><h4 class='document-row'>Order Code: &nbsp </h4 >" + documents[i].parsed_metadata.ordercode + "</br><h4 class='document-row'>Date: &nbsp </h4>" + months[documents[i].parsed_metadata.date.getMonth()] + " " + documents[i].parsed_metadata.date.getDate() + ", " + documents[i].parsed_metadata.date.getFullYear() +"</br><hr></div>"
 	}
 	//<a href='google.com' ><img src='/img/download.png'/ style='width: 3vw; float: left; padding-right: 10px;'></a>
 	elementString += "</br>"

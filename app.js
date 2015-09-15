@@ -23,7 +23,13 @@ app.set('view engine', 'html');
 
 app.get('/', function(req, res) {
 	res.render('index.html')
-})
+});
+app.get('/result', function(req, res) {
+	res.render('result.html');
+});
+app.get('/items', function(req, res) {
+	res.render('item.html');
+});
 
 app.get('/search', function(req, res){
 	var query = req.query.q;

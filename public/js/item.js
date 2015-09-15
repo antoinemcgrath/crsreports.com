@@ -59,7 +59,7 @@ document.getElementById("outputItem").innerHTML = elementString;
 
 var searchResult = function() {
 	var query = document.getElementById("queryInput").value;	
-	window.document.location = "result.html?q=" + query;
+	window.document.location = "result?q=" + query;
 };
 
 //onkeydown enter triggers search
