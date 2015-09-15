@@ -44,16 +44,16 @@ if (query){
 		if (res.length > 1) {
 			elementString += "<h4> Additional Versions </h4><div style='margin-left: 20px;'>";
 
-			for(var i = 1; i < res.length; i++) {
-			
-			elementString += "<a><h5 style='padding:10px'>" + months[res[i].parsed_metadata.date.getMonth()] + " " + res[i].parsed_metadata.date.getDate() + ", " + res[i].parsed_metadata.date.getFullYear() +"</h5></a>"
-	}
+//file to serve url listed below 
+for(var i = 1; i < res.length; i++) {
+	elementString += "<a href='/links_reports/" + res[i].sha256 + "'><h5 style='padding:10px'>" + months[res[i].parsed_metadata.date.getMonth()] + " " + res[i].parsed_metadata.date.getDate() + ", " + res[i].parsed_metadata.date.getFullYear() +"</h5></a>"
+}
 	//<a href='google.com' ><img src='/img/download.png'/ style='width: 3vw; float: left; padding-right: 10px;'></a>
 	elementString += "</div></br>"
 	
-		};
-		document.getElementById("outputItem").innerHTML = elementString;
-	});
+};
+document.getElementById("outputItem").innerHTML = elementString;
+});
 };
 
 var searchResult = function() {
