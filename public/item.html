@@ -52,13 +52,13 @@
      <div class="row" id="searchHeader">
        <div class="col-xs-10" style="margin-top: 5%;">
         <!-- Switch to JPG to reduce size -->
-        <form id="searchQuery">
+        <div id="searchQuery">
           <div class="input-group" >
 
            <!-- Search BOX -->
            <input placeholder="NEW SEARCH" style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-family: 'EB Garamond',serif; font-size: 26px; font-weight: 600; padding-right: 30px;" name="q" type="text" id="queryInput">
            <span class="input-group-btn">
-            <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
+            <button onclick="searchResult();" style="background-color: transparent; border: medium none; padding: 0px;">
 
               <!-- Search Image -->
               <img style="width: 2.4vw;" src="/img/search.png">
@@ -72,7 +72,7 @@
            </button>
          </span>
        </div>
-     </form>
+     </div>
 
      <!-- Describes Blue Bar Character -->
      <hr style="border: 4px solid rgb(38, 34, 98); width: 84vw; border-radius: 2px 2px 3px 3px / 2px; position: absolute; margin-top: 0px;"  position: absolute; " />
@@ -86,7 +86,7 @@
 </div>
 
 <!--Grey Results Header-->
-<div class="row" id="resultsHeader">
+<div class="row" id="itemHeader">
 
 </div>
 
@@ -94,7 +94,7 @@
 <!--List of Results-->
 <div class="row" >
   <div class="col-lg-2 col-md-2 col-sm-1"></div>
-  <div class="col-lg-8 col-md-8 col-sm-10" style="top: 4em;" id="outputSearchResult">
+  <div class="col-lg-8 col-md-8 col-sm-10" style="top: 4em;" id="outputItem">
     <!--For each Result-->
 
     <h3> Searching<cs href="#">...</cs> </h3>
@@ -111,7 +111,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/index.js"></script>
+<script src="/js/item.js"></script>
 </body>
 </html>
 

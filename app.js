@@ -53,6 +53,23 @@ app.get('/search', function(req, res){
 
 })
 
+//logic for item page
+app.get('/getitem', function(req, res){
+	var query = req.query.q;
+	db.bind('reports');
+
+	db.reports.find(
+	{ "parsed_metadata.ordercode": query}).toArray( 
+	function(err, results){
+		if(err){
+			console.log(err);
+			return res.status(500).send("There is an error");
+		}
+		res.send(results);
+	});
+
+})
+
 ///break off onto a nesssw resource get file renders layouts page formating from additional file
 // Code fos report info page
 app.get('/report', function(req, res) {
@@ -110,3 +127,5 @@ var server = app.listen(3000, function () {
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log('CRSReports App listening at http://%s:%s/crs-test', host, port);});
+
+
