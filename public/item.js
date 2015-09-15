@@ -17,9 +17,12 @@ var query = getUrlParameter("q");
 console.log(query);
 if (query){
 	$.ajax({
-		url: "/getitem?q=" + query,
+		url: "/links_reports/q=" + query,
 		method: "GET"
 	}).success(function(res){
 		console.log(res);
 		});
 };
+
+
+/links_reports/cd2f57044ff7eef308a91729f1f685391e0fe94e7ccf960e516965ade80fd3a7
