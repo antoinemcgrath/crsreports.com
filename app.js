@@ -30,6 +30,9 @@ app.get('/result', function(req, res) {
 app.get('/items', function(req, res) {
 	res.render('item.html');
 });
+app.get('/about', function(req, res){
+	res.render('about.html');
+})
 
 app.get('/search', function(req, res){
 	var query = req.query.q;
