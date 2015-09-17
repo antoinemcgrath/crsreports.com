@@ -53,9 +53,9 @@ app.get('/search', function(req, res){
 		
 		//This displays only the most recent version of a Title
 		results.forEach(function (x) {
-		  if (!unique[x.parsed_metadata.title]) {
+		  if (!unique[x.parsed_metadata.ordercode]) {
 		    distinct.push(x);
-		    unique[x.parsed_metadata.title] = true;
+		    unique[x.parsed_metadata.ordercode] = true;
 		  }
 		});
 		res.send(distinct);
