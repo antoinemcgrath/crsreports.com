@@ -40,7 +40,7 @@ if (query){
 		}
 		document.getElementById("itemHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: center; font-family: Helvetica, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9">' + res[0].parsed_metadata.title + '</p></div>';
 
-		var elementString = "<a href='/links_reports/" + res[0].sha256 + "' download='"+res[0].parsed_metadata.ordercode+"_"+res[0].parsed_metadata.date.getFullYear()+"-"+months[res[0].parsed_metadata.date.getMonth()]+"-"+res[0].parsed_metadata.date.getDate()+"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 5vw;' /></a><h4>Date: " + months[res[0].parsed_metadata.date.getMonth()] + " " + res[0].parsed_metadata.date.getDate() + ", " + res[0].parsed_metadata.date.getFullYear() +"</h4>";
+		var elementString = "<a href='/links_reports/" + res[0].sha256 + "' download='"+res[0].parsed_metadata.ordercode+"_"+res[0].parsed_metadata.date.getFullYear()+"-"+months[res[0].parsed_metadata.date.getMonth()]+"-"+res[0].parsed_metadata.date.getDate()+"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /></a><h4>Date: " + months[res[0].parsed_metadata.date.getMonth()] + " " + res[0].parsed_metadata.date.getDate() + ", " + res[0].parsed_metadata.date.getFullYear() +"</h4>";
 
 		if (res.length > 1) {
 			elementString += "<hr></br><h4> Additional Versions </h4><div style='margin-left: 20px;'>";
