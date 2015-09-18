@@ -68,7 +68,21 @@ app.get('/getitem', function(req, res){
 	var query = req.query.q;
 	db.bind('reports');
 
-	db.reports.find(
+        db.reports.aggregate(
+           [{$match: {"parsed_metadata.ordercode":"95-1013"}},
+            {$group: {'_id': "$parsed_metadata.date",
+                      title : {$first : "$parsed_metadata.title"},
+                      sha256 : {$first : "$sha256"},
+                      ordercode : {$first : "$parsed_metadata.ordercode"}}} ],
+        function(err, results) {
+           if(err){
+              console.log(err);
+              return res.status(500).send("There is an error");
+           }
+           res.send(results);
+        });
+
+	/*db.reports.find(
 	{ "parsed_metadata.ordercode": query}).toArray( 
 	function(err, results){
 		if(err){
@@ -76,7 +90,7 @@ app.get('/getitem', function(req, res){
 			return res.status(500).send("There is an error");
 		}
 		res.send(results);
-	});
+	});*/
 
 })
 
