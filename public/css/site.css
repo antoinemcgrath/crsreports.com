@@ -1,3 +1,8 @@
+input#searchInput:focus {
+   outline:none;
+
+}
+
 .document-row {
 	display: inline-block;
 }
