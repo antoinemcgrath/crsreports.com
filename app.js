@@ -69,7 +69,7 @@ app.get('/getitem', function(req, res){
 	db.bind('reports');
 
         db.reports.aggregate(
-           [{$match: {"parsed_metadata.ordercode":"95-1013"}},
+           [{$match: {"parsed_metadata.ordercode":req.query.q}},
             {$group: {'_id': "$parsed_metadata.date",
                       title : {$first : "$parsed_metadata.title"},
                       sha256 : {$first : "$sha256"},
