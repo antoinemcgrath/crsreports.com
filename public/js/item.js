@@ -81,12 +81,12 @@ document.getElementById("outputItem").innerHTML = elementString;
 };
 
 var searchResult = function() {
-	var query = document.getElementById("queryInput").value;	
+	var query = document.getElementById("searchInput").value;	
 	window.document.location = "result?q=" + query;
 };
 
 //onkeydown enter triggers search
-$("#queryInput").keyup(function(event){
+$("#searchInput").keyup(function(event){
     if(event.keyCode == 13){
         searchResult();
     }

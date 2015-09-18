@@ -3,11 +3,6 @@ $("#searchForm").on("submit", function(e){
 	window.location.href="/result?q="+document.getElementById("searchInput").value;
 });
 
-$("#searchQuery").on("submit", function(e){
-	e.preventDefault();
-	window.location.href="/result?q="+document.getElementById("queryInput").value;
-});
-
 var documents = [];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
