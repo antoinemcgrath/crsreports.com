@@ -41,8 +41,15 @@ app.get('/search', function(req, res){
 
 	db.reports.aggregate([
 	{ $match: { $text : { $search: query}} }, 
-	{ $sort: { score: {$meta: "textScore"}, "parsed_metadata.ordercode": -1 }},
-	{ $limit: 400 }
+        { $sort: {"parsed_metadata.date": -1 }},
+        { $group: {'_id': '$parsed_metadata.ordercode',
+                   title : {$first : "$parsed_metadata.title"},
+                   sha256 : {$first : "$sha256"},
+                   date : {$first : "$parsed_metadata.date"},
+                   score: {$first : {$meta: "textScore"}}}},
+        // first score, date, then title
+        { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}},
+	{ $limit: 50 }
 	], function(err, results){
 		if(err){
 			console.log(err);
@@ -51,14 +58,7 @@ app.get('/search', function(req, res){
 		var unique = {};
 		var distinct = [];
 		
-		//This displays only the most recent version of a Title
-		results.forEach(function (x) {
-		  if (!unique[x.parsed_metadata.ordercode]) {
-		    distinct.push(x);
-		    unique[x.parsed_metadata.ordercode] = true;
-		  }
-		});
-		res.send(distinct);
+		res.send(results);
 	})
 
 })
@@ -81,16 +81,6 @@ app.get('/getitem', function(req, res){
            }
            res.send(results);
         });
-
-	/*db.reports.find(
-	{ "parsed_metadata.ordercode": query}).toArray( 
-	function(err, results){
-		if(err){
-			console.log(err);
-			return res.status(500).send("There is an error");
-		}
-		res.send(results);
-	});*/
 
 })
 

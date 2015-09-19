@@ -39,9 +39,9 @@ if (query){
                 if (documents.length == 1) reportWord = "report";
 
 		for(var i = 0; i < documents.length; i++) {
-				documents[i].parsed_metadata.date = parseDate(documents[i].parsed_metadata.date);
+				documents[i].date = parseDate(documents[i].date);
 			};
-			document.getElementById("resultsHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: left; font-family: Helvetica, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9"> &nbsp &nbsp Displaying '+ documents.length + ' ' + reportWord + ' <!--Sort By Drop-down menu--><div class="dropdown-menu-right" style="padding: 10px; 30px; 0px; 50px;"> <img src="/img/SortBar.png"/> &nbsp Sort by &nbsp <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Select &nbsp <img src="/img/DropdownArrow.png"/></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("title");\'>Title</a></li><li><a onclick=\'sortDocuments("title", 1);\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("time", 1);\'>Date</a></li><li><a onclick=\'sortDocuments("time");\'>Date (oldest first)</a></li></ul></p></div> </div>'
+			document.getElementById("resultsHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: left; font-family: Helvetica, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9"> &nbsp &nbsp Displaying '+ documents.length + ' ' + reportWord + ' <!--Sort By Drop-down menu--><div class="dropdown-menu-right" style="padding: 10px; 30px; 0px; 50px;"> <img src="/img/SortBar.png"/> &nbsp Sort by &nbsp <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="sortText">Relevance</span> <img src="/img/DropdownArrow.png"/></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("Relevance");\'>Relevance</a></li><li><a onclick=\'sortDocuments("Title");\'>Title</a></li><li><a onclick=\'sortDocuments("Title (descending)");\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("Date");\'>Date</a></li><li><a onclick=\'sortDocuments("Date (oldest first)");\'>Date (oldest first)</a></li></ul></p></div> </div>'
 			displayDocuments();
 		});
 };
@@ -50,7 +50,7 @@ var displayDocuments = function() {
 	var elementString = "";
 	for(var i = 0; i < documents.length; i++) {
 		
-			elementString += "<div class='active-hover' style='padding:10px'><a href='items?q=" + documents[i].parsed_metadata.ordercode + "'><h3 class='document-row'>" + documents[i].parsed_metadata.title + "</h3></a></br><h4 class='document-row'>Current Version: &nbsp </h4 >" + months[documents[i].parsed_metadata.date.getMonth()] + " " + documents[i].parsed_metadata.date.getDate() + ", " + documents[i].parsed_metadata.date.getFullYear() + "<h4 class='document-row' style='text-indent: 5em;*'>Order Code: &nbsp </h4>" + documents[i].parsed_metadata.ordercode + "</br><hr></div>"
+			elementString += "<div class='active-hover' style='padding:10px'><a href='items?q=" + documents[i]._id + "'><h3 class='document-row'>" + documents[i].title + "</h3></a></br><h4 class='document-row'>Current Version: &nbsp </h4 >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "<h4 class='document-row' style='text-indent: 5em;*'>Order Code: &nbsp </h4>" + documents[i]._id + "</br><hr></div>"
 
 
 
@@ -63,28 +63,40 @@ var displayDocuments = function() {
 	document.getElementById("outputSearchResult").innerHTML = elementString;
 };
 
-var sortDocuments= function(sortBy, reverse){
-	documents.sort(function(a,b){
-		if(sortBy === "title") {
-			a = a.parsed_metadata.title.toLowerCase();
-			b = b.parsed_metadata.title.toLowerCase();
-		}
-		if (sortBy === "time") {
-			a = a.parsed_metadata.date.getTime();
-			b = b.parsed_metadata.date.getTime();
-		}
-		if(a < b){
-			return -1;
-		}
-		if(a > b){
-			return 1;
-		}
-		return 0;
-	});
-	if(reverse) {
-		documents = documents.reverse();
-	}
-	displayDocuments();
+var sortDocuments= function(sortBy){
+   document.getElementById("sortText").innerHTML = sortBy;
+   documents.sort(function(a,b){
+       score = [b.score, a.score];
+       date = [b.date, a.date];
+       title = [a.title.toLowerCase(), b.title.toLowerCase()];
+       ordercode = [a._id, b._id];
+       if (sortBy === "Relevance") {
+          sortOrder = [score, date, title, ordercode];
+       } else if (sortBy === "Title") {
+	   sortOrder = [title, score, date, ordercode];
+       } else if (sortBy === "Title (descending)") {
+	   sortOrder = [title.reverse(), score, date, ordercode];
+       } else if (sortBy === "Date") {
+	   sortOrder = [date, score, title, ordercode];
+       } else if (sortBy === "Date (oldest first)") {
+	   sortOrder = [date.reverse(), score, title, ordercode];
+       }
+
+       var idx = 0;
+       while (true) {
+          if(sortOrder[idx][0] > sortOrder[idx][1]){
+             return 1;
+          } else if(sortOrder[idx][1] > sortOrder[idx][0]){
+             return -1;
+          } else {
+             idx+=1;
+             if (idx >= sortOrder.length) {
+                return 0;
+             }
+          }
+       }
+   });
+   displayDocuments();
 
 };
 
