@@ -36,13 +36,13 @@ app.get('/about', function(req, res){
 
 app.get('/search', function(req, res){
 	var query = req.query.q;
-	var regex = new RegExp(query, 'i')
+//	var regex = new RegExp(query, 'i')
 	db.bind('reports');
 
 	db.reports.aggregate([
-	{ $match: { "parsed_metadata.title": regex}}, 
-	{ $sort: { "parsed_metadata.date": -1 }},
-	{ $limit: 500 }
+	{ $match: { $text : { $search: query}} }, 
+	{ $sort: { score: {$meta: "textScore"}, "parsed_metadata.ordercode": -1 }},
+	{ $limit: 400 }
 	], function(err, results){
 		if(err){
 			console.log(err);
