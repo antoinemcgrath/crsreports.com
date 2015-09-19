@@ -33,10 +33,15 @@ if (query){
 	}).success(function(res){
 		documents.length = 0;
 		documents.push.apply(documents,res);
+
+                // Handle plurals
+                var reportWord = "reports";
+                if (documents.length == 1) reportWord = "report";
+
 		for(var i = 0; i < documents.length; i++) {
 				documents[i].parsed_metadata.date = parseDate(documents[i].parsed_metadata.date);
 			};
-			document.getElementById("resultsHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: left; font-family: Helvetica, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9"> &nbsp &nbsp Displaying '+ documents.length + '  reports <!--Sort By Drop-down menu--><div class="dropdown-menu-right" style="padding: 10px; 30px; 0px; 50px;"> <img src="/img/SortBar.png"/> &nbsp Sort by &nbsp <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Select &nbsp <img src="/img/DropdownArrow.png"/></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("title");\'>Title</a></li><li><a onclick=\'sortDocuments("title", 1);\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("time", 1);\'>Date</a></li><li><a onclick=\'sortDocuments("time");\'>Date (oldest first)</a></li></ul></p></div> </div>'
+			document.getElementById("resultsHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: left; font-family: Helvetica, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9"> &nbsp &nbsp Displaying '+ documents.length + ' ' + reportWord + ' <!--Sort By Drop-down menu--><div class="dropdown-menu-right" style="padding: 10px; 30px; 0px; 50px;"> <img src="/img/SortBar.png"/> &nbsp Sort by &nbsp <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Select &nbsp <img src="/img/DropdownArrow.png"/></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("title");\'>Title</a></li><li><a onclick=\'sortDocuments("title", 1);\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("time", 1);\'>Date</a></li><li><a onclick=\'sortDocuments("time");\'>Date (oldest first)</a></li></ul></p></div> </div>'
 			displayDocuments();
 		});
 };
