@@ -1,5 +1,5 @@
 var getUrlParameter = function getUrlParameter(sParam) {
-	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+	var sPageURL = decodeURIComponent(window.location.hostname.search.substring(1)),
 	sURLVariables = sPageURL.split('&'),
 	sParameterName,
 	i;
@@ -21,7 +21,7 @@ if (query){
 		method: "GET"
 	}).success(function(res){
 		console.log(res);
-		});
+	});
 };
 
 
