@@ -25,6 +25,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 var query = getUrlParameter("q"); 
 
+if(!query){
+	document.getElementById("outputSearchResult").innerHTML= "<h3>You did not enter a search. Please enter a keyword to view related reports.</h3>";
+}
+
 if (query){
         document.getElementById("searchInput").value = query.replace(new RegExp('\\+','g'), " ");
 	$.ajax({
@@ -33,16 +37,23 @@ if (query){
 	}).success(function(res){
 		documents.length = 0;
 		documents.push.apply(documents,res);
-
+		
                 // Handle plurals
                 var reportWord = "reports";
                 if (documents.length == 1) reportWord = "report";
 
+        
 		for(var i = 0; i < documents.length; i++) {
 				documents[i].date = parseDate(documents[i].date);
 			};
+
 			document.getElementById("resultsHeader").innerHTML = '<div class="col-xs-2"></div><div class="col-xs-4" style="display: inline-block; vertical-align: middle; float: none; text-align: left; font-family: Helvetica, serif; font-size: 16px; font-weight:bold; "><div style="padding-left:20px;">Displaying '+ documents.length + ' ' + reportWord + '</div></div>' + '<div class="col-xs-4" style="display: inline-block; vertical-align: middle; float: none; text-align:right; font-family: Helvetica, serif; font-size: 16px;"> <!--Sort By Drop-down menu--><div style="padding-right:7px;"><img src="/img/SortBar.png" style="height:30px; margin-right:3px;"/><span style="font-weight:bold; margin-right:15px;">Sort by</span><button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="sortText">Relevance</span> <img src="/img/DropdownArrow.png"/></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("Relevance");\'>Relevance</a></li><li><a onclick=\'sortDocuments("Title");\'>Title</a></li><li><a onclick=\'sortDocuments("Title (descending)");\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("Date");\'>Date</a></li><li><a onclick=\'sortDocuments("Date (oldest first)");\'>Date (oldest first)</a></li></ul></div></div></div>'
 			displayDocuments();
+		}).error(function(res){
+			//If no documents, display a "Search Again" message
+		document.getElementById("outputSearchResult").innerHTML = "<h3>The search term you entered did not show any results. Please try another query.</h3>";
+			//Code to redirect to Home Page:
+			//window.location.href="/";
 		});
 };
 
