@@ -31,6 +31,7 @@ if(!query){
 
 if (query){
         document.getElementById("searchInput").value = query.replace(new RegExp('\\+','g'), " ");
+        setTimeout(function(){document.getElementById('searching').style.visibility = 'visible'}, 300);
 	$.ajax({
 		url: "/search?q=" + query,
 		method: "GET"
@@ -46,7 +47,8 @@ if (query){
 		for(var i = 0; i < documents.length; i++) {
 				documents[i].date = parseDate(documents[i].date);
 			};
-			document.getElementById("resultsHeader").innerHTML = '<div class="col-xs-0 col-sm-1 col-md-1 col-lg-2"></div><div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align: left; font-size: 16px; font-weight:bold; "><div style="padding-left:20px;">Displaying '+ documents.length + ' ' + reportWord + '</div></div>' + '<div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align:right; font-size: 16px;"> <!--Sort By Drop-down menu--><div style="padding-right:7px;"><img src="/img/SortBar.png" style="height:30px; margin-right:3px;"/><span style="font-weight:bold; margin-right:15px;">Sort by</span><button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span id="sortText">Relevance</span> <img src="/img/DropdownArrow.png"/></button><ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortMenu"><li><a onclick=\'sortDocuments("Relevance");\'>Relevance</a></li><li><a onclick=\'sortDocuments("Title");\'>Title</a></li><li><a onclick=\'sortDocuments("Title (descending)");\'>Title (descending)</a></li><li><a onclick=\'sortDocuments("Date");\'>Date</a></li><li><a onclick=\'sortDocuments("Date (oldest first)");\'>Date (oldest first)</a></li></ul></div></div></div>'
+                        document.getElementById("numReports").innerHTML = documents.length + " " + reportWord;
+                        document.getElementById("resultsHeader").style.visibility = "visible";
 			displayDocuments();
 		}).error(function(res){
 			//If no documents, display a "Search Again" message
