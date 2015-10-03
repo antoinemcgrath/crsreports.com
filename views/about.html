@@ -50,37 +50,43 @@
 
      <!-- This row contains the CRS search title bar -->
      <div class="row" id="searchHeader">
-      <div class="col-xs-10" style="margin-top: 5%;">
-       <!-- Switch to JPG to reduce size -->
-       <form id="searchForm">
-        <div class="input-group" >
+      <div class="col-xs-0 col-sm-1 col-md-1 col-lg-2"></div>
+       <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" style="margin-top: 20px;">
+        <div style="display:table-cell; width:100%; vertical-align:bottom; padding-right:20px; padding-left:20px;">
+        <!-- Switch to JPG to reduce size -->
+        <form id="searchQuery">
+          <div class="input-group" style="width:100%;" >
+
 
          <!-- Search BOX -->
-         <input placeholder="NEW SEARCH" style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px;" name="q" type="text" id="searchInput">
+           <input placeholder="NEW SEARCH" style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" name="q" type="text" id="searchInput">
+           <span class="input-group-btn">
+            <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
+
+              <!-- Search Image -->
+              <img style="width: 30px;" src="/img/search.png">
+            </button>
+          </span>
+        </div>
+
+        <div class="input-group">
          <span class="input-group-btn">
-          <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
+           <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
+           </button>
+         </span>
+       </div>
+     </form>
 
-           <!-- Search Image -->
-           <img style="width: 30px;" src="/img/search.png">
-         </button>
-       </span>
+     <!-- Describes Blue Bar Character -->
+     <hr style="border: 4px solid rgb(38, 34, 98); width: 100%; border-radius: 2px 2px 3px 3px / 2px; margin-top: 0px; margin-bottom:6px;" />
      </div>
-
-     <div class="input-group">
-       <span class="input-group-btn">
-        <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
-        </button>
-      </span>
-    </div>
-  </form>
-
-  <!-- Describes Blue Bar Character -->
-  <hr style="border: 4px solid rgb(38, 34, 98); width: 84vw; border-radius: 2px 2px 3px 3px / 2px; position: absolute; margin-top: 0px; position: absolute; " />
-</div>
-<!-- Logo -->
-<div class="col-xs-2">
- <a href="/"><img style="width:130px; position: absolute;" src="/img/logo.png" /></a>
-</div>
+     <div style="display:table-cell;">
+    <!--Logo-->
+     <a href="/"><img style="width: 130px; " src="/img/logo.png" /></a>
+     </div>
+   </div>
+   
+ </div>
 
 <div style="position: relative; margin-top: 10%;" class="container">
  <h2 style="font-size:4em; font-variant:small-caps; font-weight: 600; color: rgb(38, 34, 98);"> About </h2>
