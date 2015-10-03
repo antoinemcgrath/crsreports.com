@@ -38,7 +38,7 @@ if (query){
 				return 0;
 			})
 		}
-		document.getElementById("itemHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: center; font-family: Helvetica, serif; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9">' + res[0].title + '</p></div>';
+		document.getElementById("itemHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="top: 2em; background-color: #D3D3D3; text-align: center; font-size: 1.8em; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9">' + res[0].title + '</p></div>';
 
 		var elementString = "<a href='/links_reports/" + res[0].sha256 + "' download='"
 		+ res[0].ordercode
