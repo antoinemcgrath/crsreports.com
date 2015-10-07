@@ -34,13 +34,13 @@ app.get('/about', function(req, res){
 	res.render('about.html');
 })
 
-app.get('/search', function(req, res){
-	var query = req.query.q;
+app.get('/search', function(req, res){	var query = req.query.q;
 //	var regex = new RegExp(query, 'i')
 	db.bind('reports');
 
 	db.reports.aggregate([
 	{ $match: { $text : { $search: query}} }, 
+	{ $limit: 100 },
         { $sort: {"parsed_metadata.date": -1 }},
         { $group: {'_id': '$parsed_metadata.ordercode',
                    title : {$first : "$parsed_metadata.title"},
@@ -49,7 +49,7 @@ app.get('/search', function(req, res){
                    score: {$first : {$meta: "textScore"}}}},
         // first score, date, then title
         { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}},
-	{ $limit: 50 }
+	{ $limit: 10 }
 	], function(err, results){
 		if(err){
 			console.log(err);

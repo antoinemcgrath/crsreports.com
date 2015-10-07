@@ -80,14 +80,8 @@ document.getElementById("outputItem").innerHTML = elementString;
 });
 };
 
-var searchResult = function() {
-	var query = document.getElementById("searchInput").value;	
-	window.document.location = "result?q=" + query;
+function runSearch() {
+   var query = document.getElementById("searchInput").value;	
+   window.location.href = "/result?q=" + query;
+   return false;
 };
-
-//onkeydown enter triggers search
-$("#searchInput").keyup(function(event){
-    if(event.keyCode == 13){
-        searchResult();
-    }
-});
