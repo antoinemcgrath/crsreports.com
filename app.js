@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
 var sqlite3 = require('sqlite3').verbose();
+var config = require('./config.json')
 
 var bodyParser = require('body-parser');
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});
-var url = 'mongodb://localhost:27017/crs';
+var db = mongo.db(config.mongo, {native_parser:true});
 
 function uniq(a) {
 	var seen = {};
