@@ -40,7 +40,7 @@ app.get('/search', function(req, res){	var query = req.query.q;
 
 	db.reports.aggregate([
 	{ $match: { $text : { $search: query}} }, 
-	{ $limit: 100 },
+	{ $limit: 10 },
         { $sort: {"parsed_metadata.date": -1 }},
         { $group: {'_id': '$parsed_metadata.ordercode',
                    title : {$first : "$parsed_metadata.title"},
@@ -48,8 +48,7 @@ app.get('/search', function(req, res){	var query = req.query.q;
                    date : {$first : "$parsed_metadata.date"},
                    score: {$first : {$meta: "textScore"}}}},
         // first score, date, then title
-        { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}},
-	{ $limit: 10 }
+        { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}}
 	], function(err, results){
 		if(err){
 			console.log(err);
