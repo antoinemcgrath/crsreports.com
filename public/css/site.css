@@ -5,7 +5,7 @@ body {
 
 input#searchInput:focus {
 	outline:none;
-
+	font-family: 'Hoefler', 'EB Garamond',  serif;
 }
 
 .document-row {

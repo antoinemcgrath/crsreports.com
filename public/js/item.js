@@ -46,13 +46,13 @@ if (query){
 		+"-"+ months[res[0]._id.getMonth()]
 		+"-"+res[0]._id.getDate() 
 		+".pdf"+
-		"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /><h4>Current Version: "
+		"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /><h3>Current Version: "
 		+ months[res[0]._id.getMonth()]
 		+ " " + res[0]._id.getDate()
-		+ ", " + res[0]._id.getFullYear() +"</h4></a>";
+		+ ", " + res[0]._id.getFullYear() +"</h3></a>";
 
 		if (res.length > 1) {
-			elementString += "<hr></br><h4> Additional Versions </h4><div style='margin-left: 20px;'>";
+			elementString += "<hr></br><h3> Additional Versions </h3><div style='margin-left: 20px;'>";
 
 //file to serve url listed below 
 for(var i = 1; i < res.length; i++) {
@@ -63,14 +63,14 @@ for(var i = 1; i < res.length; i++) {
 	+"-"+months[res[i]._id.getMonth()]
 	+"-"+res[i]._id.getDate()
 	+".pdf"+
-	"'><h5 style='padding:10px'>"
+	"'><h4 style='padding:10px'>"
 	+ " " + months[res[i]._id.getMonth()]
 	+ " " + res[i]._id.getDate()
 	+ ", " + res[i]._id.getFullYear()	
 	+ "&nbsp;&nbsp;&nbsp;&nbsp;" 
 	+ res[i].title 
 
-	+"</h5></a>"
+	+"</h4></a>"
 }
 	//<a href='google.com' ><img src='/img/download.png'/ style='width: 3vw; float: left; padding-right: 10px;'></a>
 //elementString += "</div></br>"
