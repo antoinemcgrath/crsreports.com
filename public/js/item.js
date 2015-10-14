@@ -46,31 +46,31 @@ if (query){
 		+"-"+ months[res[0]._id.getMonth()]
 		+"-"+res[0]._id.getDate() 
 		+".pdf"+
-		"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /><h3>Current Version: "
+		"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /><h4>Current Version: "
 		+ months[res[0]._id.getMonth()]
 		+ " " + res[0]._id.getDate()
-		+ ", " + res[0]._id.getFullYear() +"</h3></a>";
+		+ ", " + res[0]._id.getFullYear() +"</h4></a>";
 
 		if (res.length > 1) {
-			elementString += "<hr></br><h3> Additional Versions </h3><div style='margin-left: 20px;'>";
+			elementString += "<hr></br><h4> Additional Versions </h4><div style='margin-left: 20px;'>";
 
 //file to serve url listed below 
 for(var i = 1; i < res.length; i++) {
-	elementString += "<div class='row'><a href='/links_reports/" + res[i].sha256 + "' download= '"
+	elementString += "<a href='/links_reports/" + res[i].sha256 + "' download= '"
 	+ res[i].ordercode 
 	//+ "_" + res[i].parsed_metadata.title
 	+ "_" + res[i]._id.getFullYear()
 	+"-"+months[res[i]._id.getMonth()]
 	+"-"+res[i]._id.getDate()
 	+".pdf"+
-	"'><div class='col-sm-2 col-md-2 col-lg-2'><h4 style='padding:10px'>"
+	"'><h5 style='padding:10px'>"
 	+ " " + months[res[i]._id.getMonth()]
 	+ " " + res[i]._id.getDate()
 	+ ", " + res[i]._id.getFullYear()	
-	+ "</div><div class='col-sm-10 col-md-10 col-lg-2'>" 
+	+ "&nbsp;&nbsp;&nbsp;&nbsp;" 
 	+ res[i].title 
 
-	+"</h4></div></a></div>"
+	+"</h5></a>"
 }
 	//<a href='google.com' ><img src='/img/download.png'/ style='width: 3vw; float: left; padding-right: 10px;'></a>
 //elementString += "</div></br>"

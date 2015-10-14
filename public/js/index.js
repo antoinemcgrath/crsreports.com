@@ -62,7 +62,7 @@ var displayDocuments = function() {
 	var elementString = "";
 	for(var i = 0; i < documents.length; i++) {
 		
-			elementString += "<div style='padding:20px'><a href='items?q=" + documents[i]._id + "'><span style='font-size:18px;'>" + documents[i].title + "</span></a></br><div class='row'><div class='col-sm-3 col-md-3 col-lg-3'><span class='document-row' style='font-weight:bold;'>Latest version: &nbsp </span >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "</div><div class='col-sm-3 col-md-3 col-lg-3'><span class='document-row' style='text-indent: 5em; font-weight:bold;'>Order Code: &nbsp; </span>" + documents[i]._id + "<br/></div></div><div class='col-sm-3 col-md-3 col-lg-3'></div></div>"
+			elementString += "<div style='padding:20px'><a href='items?q=" + documents[i]._id + "'><span style='font-size:18px;'>" + documents[i].title + "</span></a></br><span class='document-row' style='font-weight:bold;'>Latest version: &nbsp </span >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "<span class='document-row' style='text-indent: 5em; font-weight:bold;'>Order Code: &nbsp; </span>" + documents[i]._id + "<br/></div>"
 
 
 
