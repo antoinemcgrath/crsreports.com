@@ -56,21 +56,21 @@ if (query){
 
 //file to serve url listed below 
 for(var i = 1; i < res.length; i++) {
-	elementString += "<a href='/links_reports/" + res[i].sha256 + "' download= '"
+	elementString += "<div class='row'><a href='/links_reports/" + res[i].sha256 + "' download= '"
 	+ res[i].ordercode 
 	//+ "_" + res[i].parsed_metadata.title
 	+ "_" + res[i]._id.getFullYear()
 	+"-"+months[res[i]._id.getMonth()]
 	+"-"+res[i]._id.getDate()
 	+".pdf"+
-	"'><h4 style='padding:10px'>"
+	"'><div class='col-sm-2 col-md-2 col-lg-2'><h4 style='padding:10px'>"
 	+ " " + months[res[i]._id.getMonth()]
 	+ " " + res[i]._id.getDate()
 	+ ", " + res[i]._id.getFullYear()	
-	+ "&nbsp;&nbsp;&nbsp;&nbsp;" 
+	+ "</div><div class='col-sm-10 col-md-10 col-lg-2'>" 
 	+ res[i].title 
 
-	+"</h4></a>"
+	+"</h4></div></a></div>"
 }
 	//<a href='google.com' ><img src='/img/download.png'/ style='width: 3vw; float: left; padding-right: 10px;'></a>
 //elementString += "</div></br>"
