@@ -1,11 +1,25 @@
 body {
-	font-family: 'Hoefler', 'EB Garamond',serif;
+
 	overflow-x: hidden;
+	font-family: 'Hoefler', 'EB Garamond',  serif;
+}
+
+#searchInput {
+	font-family: 'Hoefler', 'EB Garamond',  serif;
+}
+
+#mobSearchInput {
+	font-family: 'Hoefler', 'EB Garamond',  serif;
 }
 
 input#searchInput:focus {
 	outline:none;
-	font-family: 'Hoefler', 'EB Garamond',  serif;
+
+}
+
+input#mobSearchInput:focus {
+	outline:none;
+
 }
 
 .document-row {
