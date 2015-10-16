@@ -47,22 +47,21 @@
       <div class="container">
 
         <!-- This row contains the "About" text -->
+
         <div class="row" style="margin-bottom:10px; margin-top:10px;">
+<div class="hidden-xs">
          <div class="col-lg-12">
            <div style="text-align:right;"><a style= "font-size:24px; font-variant:small-caps; font-weight: 600; color: #bf1e2d;" href="about">About</a></div>
          </div>
        </div>
+</div>
 
        <!-- This row contains the CRS search -->
        <div class="row">
-         <div class="col-lg-2 col-md-2 col-sm-1"></div>
-         <div class="col-lg-8 col-md-8 col-sm-10" style="text-align:center;">
+         <div class="col-lg-2 col-md-2 col-sm-1 col-xs-0"></div>
+         <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12" style="text-align:center;">
           <!-- Switch to JPG to reduce size -->
-          <img style="width: 30vw;" src="/img/logo.png" />
-
-          <!-- Spacing between logo and search bar -->
-          <div style="height: 5vh;">
-          </div>
+          <img src="/img/logo.png" id="mainlogo" style="width:100%; max-width:414px;"/>
 
           <!-- <form action="/search" method="GET"> -->
           <form id="searchForm">
@@ -71,7 +70,7 @@
               <button type="submit" style="width:30px; background-color: transparent; border: medium none; padding: 0px;">
               </button>
             </span>
-            <input placeholder="SEARCH  CRS REPORTS.COM" class="searchPlaceholder" style="width: 100%; border: medium none; text-align: center; margin-bottom: 0px; padding-bottom: 0px;  font-weight: 600;" name="q" type="text" id="searchInput">
+            <input class="searchPlaceholder" style="width: 100%; border: medium none; text-align: center; margin-bottom: 0px; padding-bottom: 0px;  font-weight: 600;" name="q" type="text" id="searchInput" placeholder="">
             <span class="input-group-btn">
               <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
                 <!-- Switch to JPG to reduce size -->
@@ -90,6 +89,25 @@
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script>
+function setWidth(){
+
+   if ($(window).width() < 768) {
+     $('#searchInput').attr('placeholder', 'SEARCH');
+   }
+   else if ($(window).width() >= 768) {
+     $('#searchInput').attr('placeholder', 'SEARCH  CRSREPORTS.COM');
+   }
+}
+
+$(window).on('resize', function(){
+setWidth();
+});
+
+setWidth();
+
+	</script>
+
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/index.js"></script>

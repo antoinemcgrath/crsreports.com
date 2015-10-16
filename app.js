@@ -6,6 +6,7 @@ var config = require('./config.json')
 var bodyParser = require('body-parser');
 var mongo = require('mongoskin');
 var db = mongo.db(config.mongo, {native_parser:true});
+var path = require('path');
 
 function uniq(a) {
 	var seen = {};
@@ -19,6 +20,7 @@ function uniq(a) {
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static(__dirname + '/public'));
+
 app.set('view engine', 'html');
 
 app.get('/', function(req, res) {
@@ -33,7 +35,27 @@ app.get('/items', function(req, res) {
 app.get('/about', function(req, res){
 	res.render('about.html');
 })
+app.get('/download', function(req,res){
+    var hash = req.query.hash;
+    db.collection('reports').findOne({sha256: hash}, function(err, result){
+        if(err) {
+	    // XXX: Error
+	}
+        if(!result) {
+	    // XXX: Error
+	}
+	var oc = result.parsed_metadata.ordercode;
+	var date = result.parsed_metadata.date;
+        if (oc && date) {
+            var filename = oc + "_" + date.getDay() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + ".pdf";
+	    res.download('public/links_reports/' + path.normalize(hash), filename);
+        } else {
+	    //XXX: Error
+        }
+    });
 
+
+});
 app.get('/search', function(req, res){	var query = req.query.q;
 //	var regex = new RegExp(query, 'i')
 	db.bind('reports');

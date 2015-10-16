@@ -48,16 +48,15 @@
     </head>
     <body style="overflow-y:scroll;">
 
+      <div class="container">
      <!-- This row contains the CRS search title bar -->
-
-     <div class="row" id="searchHeader">
+     <div class="row hidden-xs" id="searchHeader">
        <div class="col-xs-0 col-sm-1 col-md-1 col-lg-2"></div>
        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8" style="margin-top: 20px; height:119px;">
-        <div style="display:table-cell; width:100%; vertical-align:bottom; padding-right:20px; padding-left:20px; height:119px;">
+        <div style="display:table-cell; width:100%; vertical-align:bottom; padding-right:20px; padding-left:7px; height:119px;">
         <!-- Switch to JPG to reduce size -->
         <form id="searchQuery">
           <div class="input-group" style="width:100%;" >
-
            <!-- Search BOX -->
            <input style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" name="q" type="text" id="searchInput">
            <span class="input-group-btn">
@@ -76,31 +75,67 @@
          </span>
        </div>
      </form>
-
      <!-- Describes Blue Bar Character -->
+
      <hr style="border: 4px solid rgb(38, 34, 98); width: 100%; border-radius: 2px 2px 3px 3px / 2px; margin-top: 0px; margin-bottom:6px;" />
-     </div>
-     <div style="display:table-cell; height:119px;">
+</div>
+<div style="display:table-cell; height:119px;">
      <a href="/"><img style="width: 130px; " src="/img/logo.png" /></a>
      </div>
    </div>
-   
- </div>
+   </div>
+
+
+<!-- xs search -->
+     <div class="row visible-xs" id="searchHeader">
+       <div class="col-xs-12">
+        <div style="height:119px; width:100%; text-align:center; margin-top:10px;">
+     <a href="/"><img style="width: 130px; " src="/img/logo.png" /></a>
+     </div>
+
+        <!-- Switch to JPG to reduce size -->
+        <form id="searchQuery">
+          <div class="input-group" style="width:100%;" >
+           <!-- Search BOX -->
+           <input style="width: 100%; border: medium none; text-align: left; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" name="q" type="text" id="mobSearchInput">
+           <span class="input-group-btn">
+            <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
+
+              <!-- Search Image -->
+              <img style="width: 30px;" src="/img/search.png">
+            </button>
+          </span>
+        </div>
+
+        <div class="input-group">
+         <span class="input-group-btn">
+           <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
+           </button>
+         </span>
+       </div>
+     </form>
+     <!-- Describes Blue Bar Character -->
+     <div style="width:100%; padding-right:8px;">
+     <hr style="border: 4px solid rgb(38, 34, 98); width: 100%; border-radius: 2px 2px 3px 3px / 2px; margin-top: 0px; margin-bottom:6px;" />
 </div>
+
+   </div>
+   </div>
+
 
 <!--Grey Results Header-->
 <div class="row" id="resultsHeader" style="visibility:hidden; background-color: #D3D3D3; margin-top:20px; padding-top:10px; padding-bottom: 10px;">
 
 <div class="col-xs-0 col-sm-1 col-md-1 col-lg-2"></div>
-<div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align: left; font-size: 16px; font-weight:bold; ">
-<div style="padding-left:20px;">
-Displaying <span id="numReports"></span>
+<div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align: left; font-size: 16px; font-weight:bold; margin: 0 -0.125em;">
+<div style="padding-left:3px;" id="numReportsBox">
+Found <span id="numReports"></span>
 </div>
 </div>
-<div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align:right; font-size: 16px;">
-<div style="padding-right:7px;">
-<img src="/img/SortBar.png" style="height:30px; margin-right:3px;"/>
-<span style="font-weight:bold; margin-right:15px;">Sort by</span>
+<div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align:right; font-size: 16px; margin: 0 -0.125em;">
+<div id="sortBox" style="margin-right:-3px;">
+<span class="hidden-xs"><img src="/img/SortBar.png" style="height:30px;"/>
+<span style="font-weight:bold; margin-right:15px;">Sort by</span></span>
 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownSortMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 <span id="sortText">Relevance</span> <img src="/img/DropdownArrow.png"/>
 </button>
@@ -114,7 +149,7 @@ Displaying <span id="numReports"></span>
 </div>
 </div>
 </div>
-</div>
+
 
 
 <!--List of Results-->
@@ -129,6 +164,7 @@ Displaying <span id="numReports"></span>
 
 
   </div>
+</div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

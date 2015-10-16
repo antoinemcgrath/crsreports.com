@@ -1,6 +1,13 @@
 $("#searchForm").on("submit", function(e){
 	e.preventDefault();
-	window.location.href="/result?q="+document.getElementById("searchInput").value;
+        var si = document.getElementById("searchInput").value;
+        if (document.getElementById("mobSearchInput"))
+           var msi = document.getElementById("mobSearchInput").value;
+        if(si) {
+           window.location.href="/result?q="+si;
+        } else if(msi) {
+           window.location.href="/result?q="+msi;
+        }
 });
 
 var documents = [];
@@ -30,7 +37,9 @@ if(!query){
 }
 
 if (query){
-        document.getElementById("searchInput").value = query.replace(new RegExp('\\+','g'), " ");
+        var disp_query = query.replace(new RegExp('\\+','g'), " ");
+        document.getElementById("searchInput").value = disp_query;
+        document.getElementById("mobSearchInput").value = disp_query;
         setTimeout(function(){document.getElementById('searching').style.visibility = 'visible'}, 300);
 	$.ajax({
 		url: "/search?q=" + query,
@@ -62,7 +71,7 @@ var displayDocuments = function() {
 	var elementString = "";
 	for(var i = 0; i < documents.length; i++) {
 		
-			elementString += "<div style='padding:20px'><a href='items?q=" + documents[i]._id + "'><span style='font-size:18px;'>" + documents[i].title + "</span></a></br><span class='document-row' style='font-weight:bold;'>Latest version: &nbsp </span >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "<span class='document-row' style='text-indent: 5em; font-weight:bold;'>Order Code: &nbsp; </span>" + documents[i]._id + "<br/></div>"
+			elementString += "<div class='resultitem'><a href='items?q=" + documents[i]._id + "'><span style='font-size:18px;'>" + documents[i].title + "</span></a></br><span class='document-row' style='font-weight:bold;'>Latest version: &nbsp </span >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "<br/><span class='document-row' style='font-weight:bold;'>Order Code: &nbsp; </span>" + documents[i]._id + "<br/></div>"
 
 
 
@@ -117,3 +126,4 @@ function parseDate(input) {
   // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
   return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
 };
+

@@ -40,13 +40,7 @@ if (query){
 		}
 		document.getElementById("itemHeader").innerHTML = '<div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #D3D3D3; text-align: center; font-size: 1.8em; margin-top:20px; padding-top:10px; padding-bottom:10px; "><p style="padding: 10px; 30px; 0px; 30px;" class="col-lg-9 col-md-9 col-sm-9">' + res[0].title + '</p></div>';
 
-		var elementString = "<a href='/links_reports/" + res[0].sha256 + "' download='"
-		+ res[0].ordercode
-		+"_"+ res[0]._id.getFullYear()
-		+"-"+ months[res[0]._id.getMonth()]
-		+"-"+res[0]._id.getDate() 
-		+".pdf"+
-		"'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /><h4>Current Version: "
+		var elementString = "<a href='/download?hash=" + res[0].sha256 + "'><img src='/img/download.png' style='float: left; padding-right: 10px; width: 60px;' /><h4>Current Version: "
 		+ months[res[0]._id.getMonth()]
 		+ " " + res[0]._id.getDate()
 		+ ", " + res[0]._id.getFullYear() +"</h4></a>";
@@ -56,14 +50,7 @@ if (query){
 
 //file to serve url listed below 
 for(var i = 1; i < res.length; i++) {
-	elementString += "<a href='/links_reports/" + res[i].sha256 + "' download= '"
-	+ res[i].ordercode 
-	//+ "_" + res[i].parsed_metadata.title
-	+ "_" + res[i]._id.getFullYear()
-	+"-"+months[res[i]._id.getMonth()]
-	+"-"+res[i]._id.getDate()
-	+".pdf"+
-	"'><h5 style='padding:10px'>"
+	elementString += "<a href='/download?hash=" + res[i].sha256 + "'><h5 style='padding:10px'>"
 	+ " " + months[res[i]._id.getMonth()]
 	+ " " + res[i]._id.getDate()
 	+ ", " + res[i]._id.getFullYear()	
