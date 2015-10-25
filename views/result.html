@@ -58,7 +58,7 @@
         <form id="searchForm">
           <div class="input-group" style="width:100%;" >
            <!-- Search BOX -->
-           <input style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" type="text" id="searchInput" autocomplete="off">
+           <input style="width: 100%; border: medium none; text-align: right; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" type="text" id="searchInput" autocomplete="off" placeholder="NEW SEARCH">
            <span class="input-group-btn">
             <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
 
@@ -97,7 +97,7 @@
         <form id="mobSearchForm">
           <div class="input-group" style="width:100%;" >
            <!-- Search BOX -->
-           <input style="width: 100%; border: medium none; text-align: left; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" type="text" id="mobSearchInput" autocomplete="off">
+           <input style="width: 100%; border: medium none; text-align: left; margin-bottom: 0px; padding-bottom: 0px; font-size: 26px; font-weight: 600; padding-right: 30px; margin-bottom:1px;" type="text" id="mobSearchInput" autocomplete="off" placeholder="NEW SEARCH">
            <span class="input-group-btn">
             <button type="submit" style="background-color: transparent; border: medium none; padding: 0px;">
 
@@ -125,8 +125,8 @@
 
 <!--Grey Results Header-->
 <div class="row" id="resultsHeader" style="visibility:hidden; background-color: #D3D3D3; margin-top:20px; padding-top:10px; padding-bottom: 10px;">
-
 <div class="col-xs-0 col-sm-1 col-md-1 col-lg-2"></div>
+<div id="resultsBar">
 <div class="col-xs-6 col-sm-5 col-md-5 col-lg-4" style="display: inline-block; vertical-align: middle; float: none; text-align: left; font-size: 16px; font-weight:bold; margin: 0 -0.125em;">
 <div style="padding-left:3px;" id="numReportsBox">
 Found <span id="numReports"></span>
@@ -149,6 +149,13 @@ Found <span id="numReports"></span>
 </div>
 </div>
 </div>
+<div id="itemBar" style="display:none;">
+<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
+<span id="itemTitle" style="font-size:26px;"></span>
+</div>
+</div>
+</div>
+
 
 
 

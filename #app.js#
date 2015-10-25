@@ -34,7 +34,7 @@ app.get('/item', function(req, res) {
 });
 app.get('/about', function(req, res){
 	res.render('about.html');
-})
+})CxCz
 app.get('/download', function(req,res){
     var hash = req.query.hash;
     db.collection('reports').findOne({sha256: hash}, function(err, result){
@@ -95,8 +95,7 @@ app.get('/getitem', function(req, res){
                       title : {$first : "$parsed_metadata.title"},
                       sha256 : {$first : "$sha256"},
                       ordercode : {$first : "$parsed_metadata.ordercode"}}} ],
-        function(err, results) {
-           if(err){
+        function(err, results) {           if(err){
               console.log(err);
               return res.status(500).send("There is an error");
            }
