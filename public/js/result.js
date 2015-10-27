@@ -1,6 +1,7 @@
 var documents = [];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var searchmsgtimeout = null;
+var cleared = false;
 
 function getUrlParameter(sParam) {
 	var sPageURL = decodeURIComponent(window.location.hash.substring(1)),
@@ -17,23 +18,30 @@ function getUrlParameter(sParam) {
 	}
 };
 
-if (window.location.pathname == "/item"){
-   var query = getUrlParameter("q");
-   document.getElementById("resultsHeader").style.visibility = "hidden";
+// If we have a report
+function doReport(report){
+    document.getElementById("searchInput").value = '';
+    document.getElementById("mobSearchInput").value = '';
+        $( window ).load(function() {
+            document.getElementById("thebody").style.display ='block';
+        });
+
+       document.getElementById("resultsHeader").style.visibility = "hidden";
    document.getElementById("itemBar").style.display = "block";
    document.getElementById("resultsBar").style.display = "none";
 
     document.getElementById("outputSearchResult").style.display = "none";
-    searchmsgtimeout = setTimeout(function(){document.getElementById('searching').style.visibility = 'visible';}, 300);
+    cleared = false;
+    searchmsgtimeout = setTimeout(function(){if (!cleared) document.getElementById('searching').style.display = 'block';}, 300);
 
     $.ajax({
-                url: "/getitem?q=" + query,
+                url: "/getitem?q=" + report,
                 method: "GET"
         }).success(function(res){
                 for(var i = 0, j = res.length; i < j; i++){
-                        res[i]._id = new Date(res[i]._id);
+                        res[i]._id = parseDate(res[i]._id);
 		    };
-                console.log(res);
+
 	    if(res.length > 1){
 		res.sort(function(a,b){
 		    if(a._id.getTime() < b._id.getTime()){
@@ -46,55 +54,62 @@ if (window.location.pathname == "/item"){
 		}
                 document.getElementById("itemTitle").innerHTML = res[0].title;
 
-	    var elementString = "<a href='/download?hash=" + res[0].sha256 + "'><img src='/img/do\
-wnload.png' style='float: left; padding-right: 10px; width: 60px;' /><h4>Current Version: "
+	    var elementString = "<a href='/download?hash=" + res[0].sha256 + "'><span style='display:table-cell;'><img src='/img/download.png' style='padding-right: 10px; width: 60px;' /></span><span style='display:table-cell;'><h4>Latest version: "
 	    + months[res[0]._id.getMonth()]
 	    + " " + res[0]._id.getDate()
-	    + ", " + res[0]._id.getFullYear() +"</h4></a>";
+	    + ", " + res[0]._id.getFullYear() +"</h4></span></a>";
 
 	    if (res.length > 1) {
-		elementString += "<hr></br><h4> Additional Versions </h4><div style='margin-l\
-eft: 20px;'>";
+		elementString += "<hr><h4> Additional versions </h4><div style='margin-left: 20px;'><table style='font-size:16px;'>";
 
 for(var i = 1; i < res.length; i++) {
-    elementString += "<a href='/download?hash=" + res[i].sha256 + "'><h5 style='padding:10px'>"
-    + " " + months[res[i]._id.getMonth()]
-    + " " + res[i]._id.getDate()
-    + ", " + res[i]._id.getFullYear()
-    + "&nbsp;&nbsp;&nbsp;&nbsp;"
-    + res[i].title
-
-    +"</h5></a>"
+    elementString += "<tr><td style='padding:5px; white-space:nowrap;'>"
+	+ " " + months[res[i]._id.getMonth()]
+	+ " " + res[i]._id.getDate()
+	+ ", " + res[i]._id.getFullYear()
+	+ "</td><td style='padding:5px;'>" + 
+	"<a href='/download?hash=" + res[i].sha256 + "'>"
+	+ res[i].title
+	+"</a></td></tr>"
 }
 
+elementString += "</table>";
+
 };
+        clearTimeout(searchmsgtimeout);
+cleared = true;
 document.getElementById("outputSearchResult").innerHTML = elementString;
 document.getElementById("outputSearchResult").style.display = "block";
-document.getElementById("searching").style.visibility = "hidden";
+//document.getElementById("searching").style.visibility = "hidden";
+document.getElementById("searching").style.display = "none";
 document.getElementById("resultsHeader").style.visibility = "visible";
-        clearTimeout(searchmsgtimeout);
+
 });
-};
+}
 
 
 
-function doSearch() {
 
-   var query = getUrlParameter("q"); 
+function doSearch(query) {
    document.getElementById("resultsHeader").style.visibility = "hidden";
    document.getElementById("itemBar").style.display = "none";
    document.getElementById("resultsBar").style.display = "block";
    document.getElementById("outputSearchResult").style.display = "none";
 
-   if(!query){
-	document.getElementById("outputSearchResult").innerHTML= "<h3>You did not enter a search. Please enter a keyword to view related reports.</h3>";
-   }
+//   if(!query){
+//	document.getElementById("outputSearchResult").innerHTML= "<h3>You did not enter a search. Please enter a keyword to view related reports.</h3>";
+//   }
 
    if (query){
         var disp_query = query.replace(new RegExp('\\+','g'), " ");
         document.getElementById("searchInput").value = disp_query;
         document.getElementById("mobSearchInput").value = disp_query;
-        searchmsgtimeout = setTimeout(function(){document.getElementById('searching').style.visibility = 'visible';}, 300);
+        $( window ).load(function() {
+            document.getElementById("thebody").style.display ='block';
+        });
+
+       cleared = false;
+        searchmsgtimeout = setTimeout(function(){if (!cleared) document.getElementById('searching').style.display = 'block';}, 300);
 	$.ajax({
 		url: "/search?q=" + query,
 		method: "GET"
@@ -127,14 +142,18 @@ function displayDocuments() {
 	var elementString = "";
 	for(var i = 0; i < documents.length; i++) {
 		
-			elementString += "<div class='resultitem'><a href='item#q=" + documents[i]._id + "'><span style='font-size:18px;'>" + documents[i].title + "</span></a></br><span class='document-row' style='font-weight:bold;'>Latest version: &nbsp </span >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "<br/><span class='document-row' style='font-weight:bold;'>Order Code: &nbsp; </span>" + documents[i]._id + "<br/></div>"
+			elementString += "<div class='resultitem'><a href='result#r=" + documents[i]._id + "'><span style='font-size:18px;'>" + documents[i].title + "</span></a></br><span class='document-row' style='font-weight:bold;'>Latest version: &nbsp </span >" + months[documents[i].date.getMonth()] + " " + documents[i].date.getDate() + ", " + documents[i].date.getFullYear() + "<br/><span class='document-row' style='font-weight:bold;'>Order Code: &nbsp; </span>" + documents[i]._id + "<br/></div>"
 
 	}
 	elementString += "</br>"
+        clearTimeout(searchmsgtimeout);
+    cleared = true;
 	document.getElementById("outputSearchResult").innerHTML = elementString;
         document.getElementById("outputSearchResult").style.display = "block";
-        document.getElementById("searching").style.visibility = "hidden";
-        clearTimeout(searchmsgtimeout);
+//        document.getElementById("searching").style.visibility = "hidden";
+    document.getElementById("searching").style.display = "none";
+
+
 };
 
 function sortDocuments(sortBy){
@@ -176,11 +195,29 @@ function sortDocuments(sortBy){
 
 function parseDate(input) {
   var parts = input.match(/(\d+)/g);
-  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
   return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
 };
 
-if (window.location.pathname == "/result"){
+// On hash change
+window.onpopstate = function(event)
+{
+    var report = getUrlParameter("r");
+    if (report) {
+	doReport(report);
+    }
 
-doSearch();
+    var query = getUrlParameter("q");
+    if(query) {
+	doSearch(query);
+    }
+};
+
+var report = getUrlParameter("r");
+if (report) {
+    doReport(report);
+}
+
+var query = getUrlParameter("q");
+if(query) {
+    doSearch(query);
 }

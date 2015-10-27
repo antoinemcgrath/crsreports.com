@@ -47,7 +47,7 @@ app.get('/download', function(req,res){
 	var oc = result.parsed_metadata.ordercode;
 	var date = result.parsed_metadata.date;
         if (oc && date) {
-            var filename = oc + "_" + date.getDay() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + ".pdf";
+            var filename = oc + "_" + date.getUTCDate() + "-" + (date.getUTCMonth()+1) + "-" + date.getUTCFullYear() + ".pdf";
 	    res.download('public/links_reports/' + path.normalize(hash), filename);
         } else {
 	    //XXX: Error
@@ -62,7 +62,7 @@ app.get('/search', function(req, res){	var query = req.query.q;
 
 	db.reports.aggregate([
 	{ $match: { $text : { $search: query}} }, 
-	{ $limit: 10 },
+//	{ $limit: 100 },
         { $sort: {"parsed_metadata.date": -1 }},
         { $group: {'_id': '$parsed_metadata.ordercode',
                    title : {$first : "$parsed_metadata.title"},
@@ -70,7 +70,8 @@ app.get('/search', function(req, res){	var query = req.query.q;
                    date : {$first : "$parsed_metadata.date"},
                    score: {$first : {$meta: "textScore"}}}},
         // first score, date, then title
-        { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}}
+        { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}},
+//	{ $limit: 10 },
 	], function(err, results){
 		if(err){
 			console.log(err);

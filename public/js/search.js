@@ -3,15 +3,21 @@ var submit = function(e){
 
 $("#mobSearchForm").on("submit", function(e){
     e.preventDefault();
-    window.location.href="/result#q=" + document.getElementById("mobSearchInput").value;
-    doSearch();
-    return false;
+    var q = document.getElementById("mobSearchInput").value;
+    if (q.trim().length) {
+	window.location.href="/result#q=" + q;
+	$(document.activeElement).blur();
+	return false;
+    }
 });
 
 $("#searchForm").on("submit", function(e){
     e.preventDefault();
-    window.location.href="/result#q=" + document.getElementById("searchInput").value;
-    doSearch();
-    return false;
+    var q = document.getElementById("searchInput").value;
+    if (q.trim().length) {
+	window.location.href="/result#q=" + q;
+	$(document.activeElement).blur();
+	return false;
+    }
 });
 
