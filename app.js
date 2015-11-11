@@ -2,10 +2,11 @@ var express = require('express');
 var app = express();
 var sqlite3 = require('sqlite3').verbose();
 var config = require('./config.json')
+var fs = require('fs');
 
 var bodyParser = require('body-parser');
 var mongo = require('mongoskin');
-var db = mongo.db(config.mongo, {native_parser:true});
+var db = mongo.db(config.mongo, {native_parser:true, readPreference: 'secondary'});
 var path = require('path');
 
 function uniq(a) {
@@ -46,9 +47,16 @@ app.get('/download', function(req,res){
 	}
 	var oc = result.parsed_metadata.ordercode;
 	var date = result.parsed_metadata.date;
+	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
         if (oc && date) {
-            var filename = oc + "_" + date.getUTCDate() + "-" + (date.getUTCMonth()+1) + "-" + date.getUTCFullYear() + ".pdf";
-	    res.download('public/links_reports/' + path.normalize(hash), filename);
+            var filename = oc + "_" + date.getUTCDate() + "-" + months[date.getUTCMonth()] + "-" + date.getUTCFullYear() + ".pdf";
+		
+		var stream = fs.createReadStream('public/links_reports/' + path.normalize(hash));
+	    res.setHeader('Content-disposition', 'inline; filename="' + filename + '"');
+  		res.setHeader('Content-type', 'application/pdf');
+	    //res.end('public/links_reports/' + path.normalize(hash), filename);
+		stream.pipe(res);
+	    //res.download('public/links_reports/' + path.normalize(hash), filename);
         } else {
 	    //XXX: Error
         }
