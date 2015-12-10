@@ -1,12 +1,23 @@
 var express = require('express');
 var app = express();
+var httpApp = express();
 var sqlite3 = require('sqlite3').verbose();
 var config = require('./config.json')
 var fs = require('fs');
+var privateKey = fs.readFileSync('ssl/privkey.pem');
+var certificate = fs.readFileSync('ssl/fullchain.pem');
+var https = require('https');
+var http = require('http');
+var helmet = require('helmet');
+var constants = require('constants');
 
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ReadPreference = require('mongodb').ReadPreference;
+
+httpApp.get("*", function(req,res,next) {
+   res.redirect("https://crsreports.com" + req.path);
+});
 
 var db = null;
 MongoClient.connect(config.mongo,
@@ -27,6 +38,8 @@ function uniq(a) {
 	});
 }
 
+app.use(helmet());
+httpApp.use(helmet());
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
@@ -181,9 +194,35 @@ dates.push(it['parsed_metadata']['date']);
 });
 });
 
-var server = app.listen(3000, function () {
-	var host = server.address().address;
-	var port = server.address().port;
-	console.log('CRSReports App listening at http://%s:%s/crs-test', host, port);});
+https.createServer({
+   key: privateKey,
+   cert: certificate,
+   secureProtocol: 'SSLv23_method',
+   secureOptions: constants.SSL_OP_NO_SSLv3,
+   ciphers: [
+"ECDHE-RSA-AES256-SHA384",
+    "DHE-RSA-AES256-SHA384",
+    "ECDHE-RSA-AES256-SHA256",
+    "DHE-RSA-AES256-SHA256",
+    "ECDHE-RSA-AES128-SHA256",
+    "DHE-RSA-AES128-SHA256",
+    "HIGH",
+    "!aNULL",
+    "!eNULL",
+    "!EXPORT",
+    "!DES",
+    "!RC4",
+    "!MD5",
+    "!PSK",
+    "!SRP",
+    "!CAMELLIA"
+   ].join(':')
+}, app).listen(3000, function () {
+	//var host = server.address().address;
+	//var port = server.address().port;
+	console.log('CRSReports App listening on SSL');
+});
 
-
+var serv = http.createServer(httpApp).listen(8080, function(){
+   console.log('CRSReports App listening on HTTP');
+});
