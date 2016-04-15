@@ -2,7 +2,6 @@
 For more on humans.txt visit humanstxt.org
 
 
-
     /* THANKS */
 
     First and foremost THANK YOU
