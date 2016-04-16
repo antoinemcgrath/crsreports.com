@@ -2,7 +2,9 @@ var express = require('express');
 var app = express();
 var httpApp = express();
 //var sqlite3 = require('sqlite3').verbose(); -Okay2delet 2016 march 10 if nothing bad happens b4
-var config = require('./config.json')
+
+//unhashed for sitedown notice, must exist for full site
+//var config = require('./config.json')
 var fs = require('fs');
 var privateKey = fs.readFileSync('ssl/privkey.pem');
 var certificate = fs.readFileSync('ssl/fullchain.pem');
@@ -12,22 +14,28 @@ var helmet = require('helmet');
 var constants = require('constants');
 
 var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient;
-var ReadPreference = require('mongodb').ReadPreference;
+
+//unhashed for sitedown notice, must exist for full site
+//var MongoClient = require('mongodb').MongoClient;
+
+//unhashed for sitedown notice, must exist for full site
+//var ReadPreference = require('mongodb').ReadPreference;
 
 httpApp.get("*", function(req,res,next) {
    res.redirect("https://crsreports.com" + req.path);
 });
 
 var db = null;
-MongoClient.connect(config.mongo,
-   {
-      db: {native_parser: true},
-      replSet: {connectWithNoPrimary: true}
-   }, function(err,thedb){
-   if(err) console.log(err);
-   db = thedb;
-});
+
+//unhashed for sitedown notice, must exist for full site
+//MongoClient.connect(config.mongo,
+//   {
+//      db: {native_parser: true},
+//      replSet: {connectWithNoPrimary: true}
+//   }, function(err,thedb){
+//   if(err) console.log(err);
+//   db = thedb;
+//});
 
 var path = require('path');
 
