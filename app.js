@@ -51,7 +51,7 @@ function uniq(a) {
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
-app.engine('html', require('ejs').renderFile);
+//app.engine('html', require('ejs').renderFile);
 app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'html');
