@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 //});
 //app.get('/item', function(req, res) {
 //	res.render('result.html');
-});
+//});
 app.get('/about', function(req, res){
 	res.render('about.html');
 })
