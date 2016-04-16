@@ -13,7 +13,7 @@ var http = require('http');
 //var helmet = require('helmet');
 var constants = require('constants');
 
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 
 //unhashed for sitedown notice, must exist for full site
 //var MongoClient = require('mongodb').MongoClient;
