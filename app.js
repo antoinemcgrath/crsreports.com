@@ -45,8 +45,8 @@ function uniq(a) {
 	});
 }
 
-app.use(helmet());
-httpApp.use(helmet());
+app.use(helmet.csp());
+httpApp.use(helmet.csp());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
