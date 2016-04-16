@@ -60,11 +60,11 @@ app.set('view engine', 'html');
 app.get('/', function(req, res) {
 	res.render('index.html')
 });
-app.get('/result', function(req, res) {
-	res.render('result.html');
-});
-app.get('/item', function(req, res) {
-	res.render('result.html');
+//app.get('/result', function(req, res) {
+//	res.render('result.html');
+//});
+//app.get('/item', function(req, res) {
+//	res.render('result.html');
 });
 app.get('/about', function(req, res){
 	res.render('about.html');
