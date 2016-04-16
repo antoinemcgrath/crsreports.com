@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var httpApp = express();
-//var sqlite3 = require('sqlite3').verbose(); -Okay2delet 2016 march 10 if nothing bad happens b4
+////var sqlite3 = require('sqlite3').verbose(); -Okay2delet 2016 march 10 if nothing bad happens b4
 
 //unhashed for sitedown notice, must exist for full site
 //var config = require('./config.json')
@@ -10,7 +10,7 @@ var privateKey = fs.readFileSync('ssl/privkey.pem');
 var certificate = fs.readFileSync('ssl/fullchain.pem');
 var https = require('https');
 var http = require('http');
-var helmet = require('helmet');
+//var helmet = require('helmet');
 var constants = require('constants');
 
 var bodyParser = require('body-parser');
@@ -46,8 +46,8 @@ function uniq(a) {
 	});
 }
 
-app.use(helmet());
-httpApp.use(helmet());
+//app.use(helmet());
+//httpApp.use(helmet());
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
