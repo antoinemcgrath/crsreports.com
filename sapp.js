@@ -58,7 +58,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'html');
 
 app.get('/', function(req, res) {
-	res.render('index.html')
+	res.render('other/2015_Dec_PressRelease.pdf')
 });
 //app.get('/result', function(req, res) {
 //	res.render('result.html');
