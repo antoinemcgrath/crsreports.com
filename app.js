@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var httpApp = express();
 
-//unhashed for sitedown notice, must exist for full site
 var config = require('./config.json')
 var fs = require('fs');
 var privateKey = fs.readFileSync('ssl/privkey.pem');
@@ -14,10 +13,8 @@ var constants = require('constants');
 
 var bodyParser = require('body-parser');
 
-//unhashed for sitedown notice, must exist for full site
 var MongoClient = require('mongodb').MongoClient;
 
-//unhashed for sitedown notice, must exist for full site
 var ReadPreference = require('mongodb').ReadPreference;
 
 httpApp.get("*", function(req,res,next) {
@@ -26,7 +23,6 @@ httpApp.get("*", function(req,res,next) {
 
 var db = null;
 
-//unhashed for sitedown notice, must exist for full site
 MongoClient.connect(config.mongo,
    {
       db: {native_parser: true},
