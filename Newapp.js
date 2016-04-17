@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-//var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3').verbose();
 var config = require('./config.json')
 
 var bodyParser = require('body-parser');
