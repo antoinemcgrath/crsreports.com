@@ -10,12 +10,15 @@ var https = require('https');
 var http = require('http');
 var helmet = require('helmet');
 var constants = require('constants');
-
 var bodyParser = require('body-parser');
-
 var MongoClient = require('mongodb').MongoClient;
-
 var ReadPreference = require('mongodb').ReadPreference;
+var mongo = require('mongoskin');///
+var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
+var url = 'mongodb://localhost:27017/crs';///
+
+
+
 
 httpApp.get("*", function(req,res,next) {
    res.redirect("https://crsreports.com" + req.path);
