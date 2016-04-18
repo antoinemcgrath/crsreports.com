@@ -1,30 +1,18 @@
 var express = require('express');
 var app = express();
-var httpApp = express();
-
+var sqlite3 = require('sqlite3').verbose();
 var config = require('./config.json')
 var fs = require('fs');
-var privateKey = fs.readFileSync('ssl/privkey.pem');
-var certificate = fs.readFileSync('ssl/fullchain.pem');
-var https = require('https');
-var http = require('http');
-var helmet = require('helmet');
-var constants = require('constants');
+
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var ReadPreference = require('mongodb').ReadPreference;
 var mongo = require('mongoskin');///
-var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
-var url = 'mongodb://localhost:27017/crs';///
+var ReadPreference = require('mongodb').ReadPreference;
+var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});
+var url = 'mongodb://localhost:27017/crs';
 
-
-
-
-httpApp.get("*", function(req,res,next) {
-   res.redirect("https://crsreports.com" + req.path);
-});
-
-var db = null;
+//var db = 'crs';
+//var db = null;
 
 MongoClient.connect(config.mongo,
    {
@@ -33,7 +21,6 @@ MongoClient.connect(config.mongo,
    }, function(err,thedb){
    if(err) console.log(err);
    db = thedb;
-//   db = reports;
 });
 
 var path = require('path');
@@ -45,10 +32,8 @@ function uniq(a) {
 	});
 }
 
-app.use(helmet());
-httpApp.use(helmet());
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+//app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static(__dirname + '/public'));
@@ -71,7 +56,7 @@ app.get('/download', function(req,res){
     var hash = req.query.hash;
     db.collection('reports').findOne({sha256: hash, parsed_metadata : {$exists: true}}, function(err, result){
         if(err || !result) {
-	     XXX: Error
+	    // XXX: Error
             console.log("error");
             res.redirect(301, '/');
             return;
@@ -89,31 +74,31 @@ app.get('/download', function(req,res){
                 });
 	    res.setHeader('Content-disposition', 'inline; filename="' + filename + '"');
   		res.setHeader('Content-type', 'application/pdf');
-	    res.end('public/links_reports/' + path.normalize(hash), filename);
+	    //res.end('public/links_reports/' + path.normalize(hash), filename);
 		stream.pipe(res);
-	    res.download('public/links_reports/' + path.normalize(hash), filename);
+	    //res.download('public/links_reports/' + path.normalize(hash), filename);
         } else {
-	    XXX: Error
+	    //XXX: Error
         }
     });
 
 
 });
 app.get('/search', function(req, res){	var query = req.query.q;
-	var regex = new RegExp(query, 'i')
-	db.bind('reports');
+//	var regex = new RegExp(query, 'i')
+	//db.bind('reports');
 	db.collection("reports").aggregate([
 	{ $match: { $text : { $search: query}} },
-	{ $limit: 100 },
+//	{ $limit: 100 },
         { $sort: {"parsed_metadata.date": -1 }},
         { $group: {'_id': '$parsed_metadata.ordercode',
                    title : {$first : "$parsed_metadata.title"},
                    sha256 : {$first : "$sha256"},
                    date : {$first : "$parsed_metadata.date"},
                    score: {$first : {$meta: "textScore"}}}},
-//         first score, date, then title
+        // first score, date, then title
         { $sort: {"score": -1, "date": -1, "title": 1, "_id": 1}},
-	{ $limit: 10 },
+//	{ $limit: 10 },
 	], function(err, results){
 		if(err){
 			console.log(err);
@@ -130,7 +115,7 @@ app.get('/search', function(req, res){	var query = req.query.q;
 //logic for item page
 app.get('/getitem', function(req, res){
 	var query = req.query.q;
-	db.bind('reports');
+	//db.bind('reports');
 
         db.collection("reports").aggregate(
            [{$match: {"parsed_metadata.ordercode":req.query.q}},
@@ -151,9 +136,9 @@ app.get('/getitem', function(req, res){
 ///break off onto a nesssw resource get file renders layouts page formating from additional file
 // Code fos report info page
 app.get('/report', function(req, res) {
-	db.bind('reports');
+	//db.bind('reports');
 	db.collection("reports").find({'parsed_metadata.ordercode': req.query.id}).toArray(function(err, items) {
-	title
+	//title
 	var title = items[0]['parsed_metadata']['title'];
 	var rptid = items[0]['parsed_metadata']['ordercode'];
 	var dates = [];
@@ -162,7 +147,7 @@ app.get('/report', function(req, res) {
 
 
 	items.forEach(function(it){
-	    sourcevar += it['parsed_metadata']['source'] + "<br/>"
+//	    sourcevar += it['parsed_metadata']['source'] + "<br/>"
 sourcevar.push(it['source']);
 });
 	var sourcevarTxt = "";
@@ -182,7 +167,7 @@ sourcevar.push(it['source']);
 
 
 	items.forEach(function(it){
-	    dates += it['parsed_metadata']['date'] + "<br/>"
+//	    dates += it['parsed_metadata']['date'] + "<br/>"
 dates.push(it['parsed_metadata']['date']);
 });
 	var dateTxt = "";
@@ -193,43 +178,15 @@ dates.push(it['parsed_metadata']['date']);
 
 	res.send("<h1>" + items[0]['parsed_metadata']['title'] + "</h1>" +
 		"<h2>Order Code</h2>" + rptid +
-		 "<h2>Sources</h2>" + sourcevarTxt +
-		 "<h2>URL Source</h2>" + urlvarTxt +
+		 //"<h2>Sources</h2>" + sourcevarTxt +
+		 //"<h2>URL Source</h2>" + urlvarTxt +
 		 "<h2>Dates</h2>" + dateTxt);
 
-	res.send(items);
+//	res.send(items);
 });
 });
 
-https.createServer({
-   key: privateKey,
-   cert: certificate,
-   secureProtocol: 'SSLv23_method',
-   secureOptions: constants.SSL_OP_NO_SSLv3,
-   ciphers: [
-"ECDHE-RSA-AES256-SHA384",
-    "DHE-RSA-AES256-SHA384",
-    "ECDHE-RSA-AES256-SHA256",
-    "DHE-RSA-AES256-SHA256",
-    "ECDHE-RSA-AES128-SHA256",
-    "DHE-RSA-AES128-SHA256",
-    "HIGH",
-    "!aNULL",
-    "!eNULL",
-    "!EXPORT",
-    "!DES",
-    "!RC4",
-    "!MD5",
-    "!PSK",
-    "!SRP",
-    "!CAMELLIA"
-   ].join(':')
-}, app).listen(3000, function () {
+var server = app.listen(3000, function () {
 	var host = server.address().address;
 	var port = server.address().port;
-	console.log('CRSReports App listening on SSL');
-});
-
-var serv = http.createServer(httpApp).listen(8080, function(){
-   console.log('CRSReports App listening on HTTP');
-});
+	console.log('CRSReports App listening at http://%s:%s/crs-test', host, port);});
