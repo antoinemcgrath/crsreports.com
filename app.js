@@ -6,10 +6,12 @@ var fs = require('fs');
 
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var mongo = require('mongoskin');///
 var ReadPreference = require('mongodb').ReadPreference;
 var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});
 var url = 'mongodb://localhost:27017/crs';
-var db = 'crs';
+
+//var db = 'crs';
 //var db = null;
 
 MongoClient.connect(config.mongo,
