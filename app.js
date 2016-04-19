@@ -14,8 +14,8 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ReadPreference = require('mongodb').ReadPreference;
 var mongo = require('mongoskin');///
-var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
-var url = 'mongodb://localhost:27017/crs';///
+//var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
+//var url = 'mongodb://localhost:27017/crs';///
 
 
 
@@ -26,6 +26,8 @@ httpApp.get("*", function(req,res,next) {
 
 var db = null;
 
+
+console.log(config.mongo);
 MongoClient.connect(config.mongo,
    {
       db: {native_parser: true},
@@ -33,6 +35,7 @@ MongoClient.connect(config.mongo,
    }, function(err,thedb){
    if(err) console.log(err);
    db = thedb;
+   console.log(db);
 //   db = reports;
 });
 
@@ -225,8 +228,6 @@ https.createServer({
     "!CAMELLIA"
    ].join(':')
 }, app).listen(3000, function () {
-	var host = server.address().address;
-	var port = server.address().port;
 	console.log('CRSReports App listening on SSL');
 });
 
