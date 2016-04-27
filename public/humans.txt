@@ -1,28 +1,28 @@
 
-For more on humans.txt visit humanstxt.org
+For information on what a humans.txt is visit humanstxt.org
 
 
     /* THANKS */
 
     First and foremost THANK YOU
-        Authors
+        CRS Report Authors
         U.S. Congressional Research Service
         U.S. Library Of Congress
         U.S. Congress
 
-    THANK YOU Noted CRS Document Resources
+    THANK YOU Exceptional CRS Report Hosts
         U.S. Department of State, Bureau of Information Resource Management, Foreign Press Centers
         U.S. Italian Embassy, U.S. Department of State
-        U.S. House of Representatives Energy and Commerce Committee, Sites/Republicans
-        U.S. House Committee on Rules, Democrats Archives
-        University of North Texas CRS
+        U.S. House of Representatives Energy and Commerce Committee
+        U.S. House Committee on Rules
+        University of North Texas
         Federation of American Scientists
-        Sunlight Foundation
+        Sunlight Foundation (for OpenCRS.org)
         Stanford Libraries + Archive-It, CRS Collections Archived
         Internet Archive, Archive.org
 
     SPECIAL THANKS
-        The Internet Archive
+        To The Internet Archive
         -For consistently coding great ideas and ideals
         Brewster Kahle
         Roger Macdonald
@@ -48,4 +48,4 @@ For more on humans.txt visit humanstxt.org
         Antoine McGrath
         Bill Marczak
 
-     2016 March Thank You
+     2016 April Thank You
