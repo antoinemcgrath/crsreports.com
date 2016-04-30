@@ -31,7 +31,7 @@ console.log(config.mongo);
 MongoClient.connect(config.mongo,
    {
       db: {native_parser: true},
-      replSet: {connectWithNoPrimary: true}
+      replSet: {connectWithNoPrimary: true}, {slaveOk=true} 
    }, function(err,thedb){
    if(err) console.log(err);
    db = thedb;
