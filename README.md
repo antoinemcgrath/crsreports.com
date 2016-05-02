@@ -7,7 +7,7 @@ The CRS project is 3 sections:
 
 1. Serving CRS reports/the front end
 
-2. Identifying CRS documents on the open web, collecting them, & creating metadata
+2. Database Management
 
 3. Analysis
 
