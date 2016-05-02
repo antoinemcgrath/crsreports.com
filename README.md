@@ -5,9 +5,9 @@ Section 1: Serving a collection of Congressional Research Service (CRS) Reports
 
 The CRS project is 3 sections:
 
-1. Serving CRS reports/the front end
+1. crsreports.com: Serving CRS reports/the front end
 
-2. Database Management
+2. crsreports.db_mgt: Database Management
 
 3. Analysis
 
