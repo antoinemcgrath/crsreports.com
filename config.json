@@ -1,0 +1,4 @@
+##//demo config.json file, synce to local mongo instance,
+{
+   "mongo":"mongodb://DATABASE:PASSWORD@localhost:27017/USER?readPreference=secondaryPreferred"
+}
