@@ -12,7 +12,7 @@ var helmet = require('helmet');
 var constants = require('constants');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var ReadPreference = require('mongodb').ReadPreference;
+var ReadPreference = require('mongodb');
 //var mongo = require('mongoskin');///
 //var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
 //var url = 'mongodb://localhost:27017/crs';///
@@ -31,13 +31,17 @@ console.log(config.mongo);
 MongoClient.connect(config.mongo,
    {
       db: {native_parser: true},
-      replSet: {connectWithNoPrimary: true}, {slaveOk=true} 
+      replSet: {connectWithNoPrimary: true
    }, function(err,thedb){
    if(err) console.log(err);
    db = thedb;
    console.log(db);
 //   db = reports;
 });
+
+
+
+
 
 var path = require('path');
 
