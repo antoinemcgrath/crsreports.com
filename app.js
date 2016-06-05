@@ -17,27 +17,11 @@ var ReadPreference = require('mongodb');
 //var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
 //var url = 'mongodb://localhost:27017/crs';///
 
-
-
-
 httpApp.get("*", function(req,res,next) {
    res.redirect("https://crsreports.com" + req.path);
 });
 
 //var db = null;
-
-
-//console.log(config.mongo);
-MongoClient.connect(config.mongo,
-   {
-      db: {native_parser: true},
-      replSet: {connectWithNoPrimary: true}
-   }, function(err,thedb){
-   if(err) console.log(err);
-console.log("connected!");
-   db = thedb;
-
-
 
 //console.log(config.mongo);
 MongoClient.connect(config.mongo,
