@@ -6,3 +6,6 @@ public/
 views/
 public/links_reports
 npm-debug.log
+crsreports.com/ssl/fullchain.pem
+crsreports.com/ssl/privkey.pem
+crsreports.com/ssl/
