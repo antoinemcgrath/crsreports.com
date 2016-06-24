@@ -5,3 +5,4 @@ config.json
 public/
 views/
 public/links_reports
+npm-debug.log
