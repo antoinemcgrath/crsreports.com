@@ -15,6 +15,11 @@ var ReadPreference = require('mongodb');
 
 var path = require('path');
 
+//ITEM PAGE SERVE UPDATED Line 120
+//INFOR page serve1 updated line 150
+
+
+
 function uniq(a) {
         var seen = {};
         return a.filter(function(item) {
@@ -107,7 +112,7 @@ app.get('/search', function(req, res){  var query = req.query.q;
 })
 
 
-//ITEM PAGE SERVE UPDATED
+//ITEM PAGE SERVE UPDATED Line 120
 //logic for item page
 //Is based on ORDERCODE
 app.get('/getitem', function(req, res){
@@ -116,8 +121,8 @@ app.get('/getitem', function(req, res){
 
 
         db.collection("reports").aggregate(
-           [{$match: {"parsed_metadata.ordercode":req.query.q}},
-//           [{$match: {"parsed_metadata.ordercode":req.query.q, $and: [ { "parsed_metadata.serve": '1' } ]}},
+//           [{$match: {"parsed_metadata.ordercode":req.query.q}},
+           [{$match: {"parsed_metadata.ordercode":req.query.q, $and: [ { "parsed_metadata.serve": '1' } ]}},
 
             {$group: {'_id': "$parsed_metadata.date",
                   //    serve : {"$parsed_metadata.serve" : "1"},
@@ -138,11 +143,13 @@ app.get('/getitem', function(req, res){
 
 
 
-
+// Code for report infor page serve1 updated line 150
 // Code fos report info page
 app.get('/report', function(req, res) {
 //      db.bind('reports');
-        db.collection("reports").find({'parsed_metadata.ordercode': req.query.id}).toArray(function(err, items) {
+//        db.collection("reports").find({'parsed_metadata.ordercode': req.query.id}).toArray(function(err, items) {
+        db.collection("reports").find({'parsed_metadata.ordercode': req.query.id, $and: [ { "parsed_metadata.serve": '1' } ]}).toArray(function(err, items) {
+
 //      title
         var title = items[0]['parsed_metadata']['title'];
         var rptid = items[0]['parsed_metadata']['ordercode'];
