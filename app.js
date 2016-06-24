@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-
 var config = require('./config.json')
 var fs = require('fs');
 var https = require('https');
@@ -10,15 +9,14 @@ var constants = require('constants');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ReadPreference = require('mongodb');
+
+var path = require('path');
+
 //var mongo = require('mongoskin');///
 //var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
 //var url = 'mongodb://localhost:27017/crs';///
-
 //var db = null;
-
 //console.log(config.mongo);
-
-var path = require('path');
 
 function uniq(a) {
         var seen = {};
@@ -29,7 +27,6 @@ function uniq(a) {
 
 app.use(helmet());
 //app.use(bodyParser.urlencoded({ extended: false }))
-
 
 //app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
@@ -52,7 +49,7 @@ app.get('/about', function(req, res){
 })
 app.get('/download', function(req,res){
     var hash = req.query.hash;
-    db.collection('reports').findOne({sha256: hash, parsed_metadata : {$exists: true}}, function(err, result){
+    db.collection('reports').findOne({sha256: hash, parsed_metadata.serve : '1'}, function(err, result){
         if(err || !result) {
              //XXX: Error
 
@@ -160,11 +157,11 @@ sourcevar.push(it['source']);
         uniq(sourcevar).forEach(function(d){
                 sourcevarTxt += d + "<br/>"
         });
-        
-        
-        
-        
-        
+
+
+
+
+
         items.forEach(function(it){
                 urlvar.push(it['url']);
         });
@@ -184,9 +181,9 @@ dates.push(it['parsed_metadata']['date']);
         uniq(dates).forEach(function(d){
                 dateTxt += d + "<br/>"
         });
-        
-        
-        
+
+
+
 
         res.send("<h1>" + items[0]['parsed_metadata']['title'] + "</h1>" +
                 "<h2>Order Code</h2>" + rptid +
