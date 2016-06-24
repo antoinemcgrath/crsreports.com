@@ -6,6 +6,9 @@ public/
 views/
 public/links_reports
 npm-debug.log
+<<<<<<< HEAD
+=======
 crsreports.com/ssl/fullchain.pem
 crsreports.com/ssl/privkey.pem
 crsreports.com/ssl/
+>>>>>>> 51d75eae8f909790f0f70d531ddd5eeb4189b6cb
