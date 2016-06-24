@@ -107,15 +107,18 @@ app.get('/search', function(req, res){  var query = req.query.q;
 })
 
 
-
+//ITEM PAGE SERVE UPDATED
 //logic for item page
 //Is based on ORDERCODE
 app.get('/getitem', function(req, res){
         var query = req.query.q;
         //db.bind('reports');
 
+
         db.collection("reports").aggregate(
-           [{$match: {"parsed_metadata.ordercode":req.query.q}},
+//           [{$match: {"parsed_metadata.ordercode":req.query.q}},
+           [{$match: {"parsed_metadata.ordercode":req.query.q, $and: [ { "parsed_metadata.serve": '1' } ]
+
             {$group: {'_id': "$parsed_metadata.date",
                   //    serve : {"$parsed_metadata.serve" : "1"},
                       title : {$first : "$parsed_metadata.title"},
