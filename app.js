@@ -15,6 +15,7 @@ var ReadPreference = require('mongodb');
 
 var path = require('path');
 
+//Search Match Updated to Include SERVE 1 Line 90
 //ITEM PAGE SERVE UPDATED Line 120
 //INFOR page serve1 updated line 150
 
@@ -87,7 +88,7 @@ app.get('/search', function(req, res){  var query = req.query.q;
 //      var regex = new RegExp(query, 'i')
 //      db.bind('reports');
         db.collection("reports").aggregate([
-        { $match: { $text : { $search: query}} },
+        { $match: { $text : { $search: query}, $and: [ { "parsed_metadata.serve": '1' } ]} },
 //      { $limit: 100 },
         { $sort: {"parsed_metadata.date": -1 }},
         { $group: {'_id': '$parsed_metadata.ordercode',
