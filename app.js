@@ -10,11 +10,6 @@ var constants = require('constants');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ReadPreference = require('mongodb');
-//var mongo = require('mongoskin');///
-//var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
-//var url = 'mongodb://localhost:27017/crs';///
-
-//var db = null;
 
 //console.log(config.mongo);
 
@@ -29,7 +24,6 @@ function uniq(a) {
 
 app.use(helmet());
 //app.use(bodyParser.urlencoded({ extended: false }))
-
 
 //app.use(bodyParser.json())
 app.set('views', __dirname + '/views');
@@ -115,6 +109,7 @@ app.get('/search', function(req, res){  var query = req.query.q;
 
 
 //logic for item page
+//Is based on ORDERCODE
 app.get('/getitem', function(req, res){
         var query = req.query.q;
         //db.bind('reports');
@@ -122,6 +117,7 @@ app.get('/getitem', function(req, res){
         db.collection("reports").aggregate(
            [{$match: {"parsed_metadata.ordercode":req.query.q}},
             {$group: {'_id': "$parsed_metadata.date",
+                      //serve : {$first : "$parsed_metadata.title"},
                       title : {$first : "$parsed_metadata.title"},
                       sha256 : {$first : "$sha256"},
                       ordercode : {$first : "$parsed_metadata.ordercode"}}} ],
