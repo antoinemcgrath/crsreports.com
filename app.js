@@ -9,9 +9,21 @@ var constants = require('constants');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ReadPreference = require('mongodb');
+<<<<<<< HEAD
 var path = require('path');
 
 // Gets unique items in a list
+=======
+
+var path = require('path');
+
+//var mongo = require('mongoskin');///
+//var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
+//var url = 'mongodb://localhost:27017/crs';///
+//var db = null;
+//console.log(config.mongo);
+
+>>>>>>> f9d9e455f351557249d0cf3102558f6c1635844d
 function uniq(a) {
     var seen = {};
     return a.filter(function(item) {
@@ -22,6 +34,10 @@ function uniq(a) {
 // Middleware that adds a number of security enhancements
 app.use(helmet());
 
+<<<<<<< HEAD
+=======
+//app.use(bodyParser.json())
+>>>>>>> f9d9e455f351557249d0cf3102558f6c1635844d
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static(__dirname + '/public'));
@@ -41,7 +57,7 @@ app.get('/about', function(req, res){
 })
 app.get('/download', function(req,res){
     var hash = req.query.hash;
-    db.collection('reports').findOne({sha256: hash, parsed_metadata : {$exists: true}}, function(err, result){
+    db.collection('reports').findOne({sha256: hash, parsed_metadata.serve : '1'}, function(err, result){
         if(err || !result) {
             console.log("error");
             res.redirect(301, '/');
@@ -124,9 +140,19 @@ app.get('/report', function(req, res) {
             var sourcevarTxt = "";
             uniq(sourcevar).forEach(function(d){
                 sourcevarTxt += d + "<br/>"
+<<<<<<< HEAD
             });
 
             items.forEach(function(it){
+=======
+        });
+
+
+
+
+
+        items.forEach(function(it){
+>>>>>>> f9d9e455f351557249d0cf3102558f6c1635844d
                 urlvar.push(it['url']);
             });
             var urlvarTxt = "";
@@ -140,12 +166,28 @@ app.get('/report', function(req, res) {
             var dateTxt = "";
             uniq(dates).forEach(function(d){
                 dateTxt += d + "<br/>"
+<<<<<<< HEAD
             });
 	    
             res.send("<h1>" + items[0]['parsed_metadata']['title'] + "</h1>" +
                      "<h2>Order Code</h2>" + rptid +
                      "<h2>Dates</h2>" + dateTxt);
 	});
+=======
+        });
+
+
+
+
+        res.send("<h1>" + items[0]['parsed_metadata']['title'] + "</h1>" +
+                "<h2>Order Code</h2>" + rptid +
+                // "<h2>Sources</h2>" + sourcevarTxt +
+                // "<h2>URL Source</h2>" + urlvarTxt +
+                 "<h2>Dates</h2>" + dateTxt);
+
+//      res.send(items);
+});
+>>>>>>> f9d9e455f351557249d0cf3102558f6c1635844d
 });
 
 var port;
