@@ -1,11 +1,8 @@
 var express = require('express');
 var app = express();
-var httpApp = express();
 
 var config = require('./config.json')
 var fs = require('fs');
-var privateKey = fs.readFileSync('ssl/privkey.pem');
-var certificate = fs.readFileSync('ssl/fullchain.pem');
 var https = require('https');
 var http = require('http');
 var helmet = require('helmet');
@@ -17,24 +14,9 @@ var ReadPreference = require('mongodb');
 //var db = mongo.db("mongodb://localhost:27017/crs", {native_parser:true});///
 //var url = 'mongodb://localhost:27017/crs';///
 
-httpApp.get("*", function(req,res,next) {
-   res.redirect("https://crsreports.com" + req.path);
-});
-
 //var db = null;
 
 //console.log(config.mongo);
-MongoClient.connect(config.mongo,
-   {
-      db: {native_parser: true},
-      replSet: {connectWithNoPrimary: true}
-   }, function(err,thedb){
-   if(err) console.log(err);
-console.log("connected!");
-   db = thedb;
-//   console.log(db);
-//   db = reports;
-});
 
 var path = require('path');
 
@@ -46,7 +28,6 @@ function uniq(a) {
 }
 
 app.use(helmet());
-httpApp.use(helmet());
 //app.use(bodyParser.urlencoded({ extended: false }))
 
 
@@ -217,46 +198,29 @@ dates.push(it['parsed_metadata']['date']);
 });
 });
 
+var port;
 
+if (process.argv.length >= 2) {
+    if (process.argv[2] == 'test') {
+	port = 8081;
+    } else if (process.argv[2] == 'deploy') {
+	port = 8080;
+    }
+}
 
-https.createServer({
-   key: privateKey,
-   cert: certificate,
-   secureProtocol: 'SSLv23_method',
-   secureOptions: constants.SSL_OP_NO_SSLv3,
-   ciphers: [
-"ECDHE-RSA-AES256-SHA384",
-    "DHE-RSA-AES256-SHA384",
-    "ECDHE-RSA-AES256-SHA256",
-    "DHE-RSA-AES256-SHA256",
-    "ECDHE-RSA-AES128-SHA256",
-    "DHE-RSA-AES128-SHA256",
-    "HIGH",
-    "!aNULL",
-    "!eNULL",
-    "!EXPORT",
-    "!DES",
-    "!RC4",
-    "!MD5",
-    "!PSK",
-    "!SRP",
-    "!CAMELLIA"
-   ].join(':')
-}, app).listen(3000, function () {
-        //var host = server.address().address;
-        //var port = server.address().port;
-        
-        
-        
-        
-                console.log('CRSReports App listening on SSL');
-});
+if (!port) {
+    console.log("Please specify 'test' or 'deploy'");
+} else {
+    MongoClient.connect(config.mongo, {
+	db: {native_parser: true},
+	replSet: {connectWithNoPrimary: true}
+    }, function(err,thedb){
+	if(err) console.log(err);
+	console.log("connected!");
+	db = thedb;
+    });
 
-var serv = http.createServer(httpApp).listen(8080, function(){
-   console.log('CRSReports App listening on HTTP');
-});
-
-
-
-
-
+    var serv = http.createServer(app).listen(port, function(){
+	console.log('CRSReports App Online');
+    });
+}
