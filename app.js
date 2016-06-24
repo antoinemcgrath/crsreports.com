@@ -116,8 +116,8 @@ app.get('/getitem', function(req, res){
 
 
         db.collection("reports").aggregate(
-//           [{$match: {"parsed_metadata.ordercode":req.query.q}},
-           [{$match: {"parsed_metadata.ordercode":req.query.q, $and: [ { "parsed_metadata.serve": '1' } ]}},
+           [{$match: {"parsed_metadata.ordercode":req.query.q}},
+//           [{$match: {"parsed_metadata.ordercode":req.query.q, $and: [ { "parsed_metadata.serve": '1' } ]}},
 
             {$group: {'_id': "$parsed_metadata.date",
                   //    serve : {"$parsed_metadata.serve" : "1"},
