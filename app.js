@@ -52,7 +52,7 @@ app.get('/about', function(req, res){
 })
 app.get('/download', function(req,res){
     var hash = req.query.hash;
-    db.collection('reports').findOne({sha256: hash, parsed_metadata.serve : '1'}, function(err, result){
+    db.collection('reports').findOne({sha256: hash, parsed_metadata : {$exists: true}}, function(err, result){
         if(err || !result) {
              //XXX: Error
 
