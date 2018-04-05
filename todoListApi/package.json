@@ -32,9 +32,9 @@
   "author": "Antoine McGrath",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/antoinemcgrath/crsreports.com/issues"
+    "url": "https://twitter.com/AGreenDCBike"
   },
-  "homepage": "https://github.com/antoinemcgrath/crsreports.com#readme",
+  "homepage": "www.crsreports.com",
   "devDependencies": {
     "nodemon": "^1.17.3"
   },
