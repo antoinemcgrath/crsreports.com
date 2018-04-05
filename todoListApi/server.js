@@ -27,5 +27,5 @@ console.log('todo list RESTful API server started on: ' + port);
 
 
 app.use(function(req, res) {
-    res.status(404).send({url: req.originalUrl + ' not found \n line  /n break for help tweet me @ https://twitter.com/AGreenDCBike'})
+    res.status(404).send({url: req.originalUrl + ' not found. CRSReports.com API error. For help tweet me @ https://twitter.com/AGreenDCBike'})
 });
